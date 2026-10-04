@@ -75,11 +75,12 @@
     .hero-grid { display: grid; grid-template-columns: minmax(0, 1.13fr) minmax(390px, .87fr); gap: 66px; align-items: center; }
     .hero-copy { padding: 20px 0; }
     .hero-role { max-width: 640px; margin-bottom: 24px; }
-    .hero h1 { max-width: 750px; font-size: clamp(2.5rem, 3.85vw, 4rem); }
+    .hero h1 { max-width: 750px; font-size: clamp(2.5rem, 3.85vw, 4rem); text-wrap: balance; }
+    .hero-lead { max-width: 600px; margin: 22px 0 0; color: var(--ink); font-size: 1.15rem; line-height: 1.55; }
     .hero-personal { max-width: 685px; margin: 28px 0 0; padding-left: 18px; border-left: 3px solid #aec3e0; color: var(--muted); font-size: 1rem; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
     .intro-note { max-width: 610px; margin: 13px 0 0; color: #707d8e; font-size: .82rem; }
-    .hero-photo { position: relative; min-height: 680px; overflow: hidden; border-radius: 0 0 145px 0; background: var(--blue-soft); }
+    .hero-photo { position: relative; min-height: 580px; overflow: hidden; border-radius: 0 0 145px 0; background: var(--blue-soft); }
     .hero-photo::before { content: ""; position: absolute; z-index: 0; width: 270px; height: 270px; top: 42px; right: -90px; border: 68px solid rgba(63, 105, 175, .1); border-radius: 50%; }
     .hero-photo img { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
     .hero-quote { position: absolute; z-index: 2; left: 22px; bottom: 22px; max-width: 285px; margin: 0; padding: 17px 19px; border: 1px solid rgba(255, 255, 255, .78); border-radius: 15px; color: #23334b; background: rgba(255, 255, 255, .9); backdrop-filter: blur(12px); font-family: var(--serif); font-size: 1.08rem; line-height: 1.42; }
@@ -118,13 +119,19 @@
 
     .books { background: #fff; }
     .book-intro { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(270px, .55fr); gap: 54px; align-items: center; margin-bottom: 34px; }
-    .book-person { height: 280px; overflow: hidden; border-radius: 22px; background: var(--blue-pale); }
-    .book-person img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+    .book-person { position: relative; aspect-ratio: 5 / 4; overflow: hidden; border-radius: 22px; background: var(--blue-pale); }
+    .book-person img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
     .book-intro-copy p:last-child { max-width: 760px; margin: 21px 0 0; color: var(--muted); }
     .books-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
     .book-card { display: flex; min-width: 0; flex-direction: column; padding: 22px; border: 1px solid var(--line); border-radius: 22px; background: var(--blue-pale); }
-    .book-art { display: grid; height: 300px; place-items: center; overflow: hidden; border-radius: 15px; background: #fff; }
-    .book-art img { width: 100%; height: 100%; object-fit: contain; }
+    .book-art { position: relative; flex: none; height: 300px; overflow: hidden; border-radius: 15px; background: #fff; }
+    .book-art img { position: absolute; inset: 0; width: 100%; height: 100%; padding: 12px; object-fit: contain; }
+    /* Crop only the mockup's grey margins; keep the complete book and shadow visible. */
+    .book-art--mockup { background: #d9d9d9; }
+    .book-art--mockup img { transform: scale(1.95); }
+    .book-card.book-card--text { display: flex; justify-content: center; background: var(--blue-soft); }
+    .book-card--text .book-card-copy { flex: none; }
+    .book-card--text .text-link { margin-top: 0; }
     .book-card-copy { display: flex; flex: 1; flex-direction: column; padding: 23px 4px 3px; }
     .book-status { color: var(--blue); font-size: .73rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
     .book-card h3 { margin: 15px 0 9px; font-family: var(--serif); font-size: clamp(1.5rem, 1.9vw, 1.95rem); font-weight: 400; line-height: 1.2; }
@@ -208,6 +215,7 @@
       .hero-copy { padding: 0; }
       .hero-role { margin-bottom: 20px; }
       .hero h1 { font-size: clamp(2.15rem, 9vw, 3.2rem); }
+      .hero-lead { margin-top: 18px; font-size: 1.05rem; }
       .hero-personal { margin-top: 22px; font-size: .92rem; }
       .hero-actions { flex-direction: column; }
       .hero-actions .button { width: 100%; }
@@ -220,7 +228,6 @@
       .about-photo { min-height: 540px; border-radius: 0 70px 0 0; }
       .about-stats { grid-template-columns: 1fr; gap: 0; }
       .book-intro { grid-template-columns: 1fr; gap: 24px; }
-      .book-person { height: 260px; }
       .book-card { display: flex; }
       .book-art { width: 100%; height: 310px; }
       .book-card-copy { padding-top: 21px; }
@@ -272,8 +279,9 @@
       <div class="container hero-grid">
         <div class="hero-copy">
           <p class="kicker hero-role">Консультант-практик по B2B-продажам и доверительным коммуникациям</p>
-          <h1 id="hero-title" class="display">Помогаю предпринимателям и основателям находить клиентов через личное общение и публичность и передавать продажи команде</h1>
-          <p class="hero-personal">Я продолжаю развивать свои проекты и сам участвую в продажах. Искал клиентов и инвесторов, пробовал разные подходы, проходил через ошибки и неудачи. Этим опытом делюсь в работе над вашей задачей.</p>
+          <h1 id="hero-title" class="display">Помогаю основателям находить клиентов</h1>
+          <p class="hero-lead">Через личное общение и публичность. Помогаю выстроить передачу продаж команде.</p>
+          <p class="hero-personal">Я продолжаю развивать свои проекты и сам участвую в продажах. В работе с вами опираюсь на собственный опыт - удачные решения, ошибки и задачи, которые решаю сейчас.</p>
           <div class="hero-actions"><a class="button button-primary" href="#contact">Договориться об интро</a><a class="button button-secondary" href="#formats">Посмотреть форматы работы</a></div>
           <p class="intro-note">20 минут, чтобы познакомиться, обсудить задачу и выбрать формат работы.</p>
         </div>
@@ -319,9 +327,9 @@
       <div class="container">
         <div class="book-intro"><div class="book-intro-copy"><p class="kicker">Книги</p><h2 id="books-title" class="display section-title">Книги и авторский подход</h2><p>В книгах собираю свой опыт продаж, предпринимательства и доверительных коммуникаций. Сейчас пишу «Продажи от сердца» и «Компанию доверия». Ранее написал «Энергию мерча» о роли бизнес-подарков в работе компании.</p></div><div class="book-person"><img src="assets/anton-heart-v3.jpeg" width="934" height="1280" loading="lazy" alt="Антон Верт показывает жест сердца руками"></div></div>
         <div class="books-grid">
-          <article class="book-card"><div class="book-art"><img src="assets/book-blue.jpeg" width="1120" height="1280" loading="lazy" alt="Обложка книги «Продажи от сердца»"></div><div class="book-card-copy"><span class="book-status">В работе</span><h3>«Продажи от сердца»</h3><p class="book-subtitle">Доверительные коммуникации в B2B-продажах</p><p class="book-description">О личном общении, публичности и передаче доверия от первого лица компании к команде. Собираю опыт и инструменты для долгих отношений с клиентами.</p><a class="text-link" href="https://salesfromheart.com/" target="_blank" rel="noopener noreferrer">О книге и подходе</a></div></article>
+          <article class="book-card"><div class="book-art book-art--mockup"><img src="assets/book-blue.jpeg" width="1120" height="1280" loading="lazy" alt="Обложка книги «Продажи от сердца»"></div><div class="book-card-copy"><span class="book-status">В работе</span><h3>«Продажи от сердца»</h3><p class="book-subtitle">Доверительные коммуникации в B2B-продажах</p><p class="book-description">О личном общении, публичности и передаче доверия от первого лица компании к команде. Собираю опыт и инструменты для долгих отношений с клиентами.</p><a class="text-link" href="https://salesfromheart.com/" target="_blank" rel="noopener noreferrer">О книге и подходе</a></div></article>
           <article class="book-card"><div class="book-art"><img src="assets/book-company-trust-v4.jpeg" width="853" height="1280" loading="lazy" alt="Обложка книги «Компания доверия»"></div><div class="book-card-copy"><span class="book-status">В работе</span><h3>«Компания доверия»</h3><p class="book-subtitle">Доверительные коммуникации в бизнесе</p><p class="book-description">О том, как компания выстраивает доверие и поддерживает его в повседневной работе с клиентами и командой.</p></div></article>
-          <article class="book-card"><div class="book-art"><img src="assets/book-merch-v4.jpeg" width="1280" height="960" loading="lazy" alt="Обложка книги о мерче"></div><div class="book-card-copy"><span class="book-status">Издана</span><h3>«Энергия мерча»</h3><p class="book-subtitle">Бизнес-подарки в HR и маркетинге</p><p class="book-description">О том, как бизнес-подарки помогают компании общаться с сотрудниками и клиентами и решать задачи HR и маркетинга.</p><a class="text-link" href="https://energymerch.taplink.bio/" target="_blank" rel="noopener noreferrer">О книге</a></div></article>
+          <article class="book-card book-card--text"><div class="book-card-copy"><span class="book-status">Издана</span><h3>«Энергия мерча»</h3><p class="book-subtitle">Бизнес-подарки в HR и маркетинге</p><p class="book-description">О том, как бизнес-подарки помогают компании общаться с сотрудниками и клиентами и решать задачи HR и маркетинга.</p><a class="text-link" href="https://energymerch.taplink.bio/" target="_blank" rel="noopener noreferrer">О книге</a></div></article>
         </div>
       </div>
     </section>
