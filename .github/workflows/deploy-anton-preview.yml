@@ -1,0 +1,43 @@
+name: Deploy antonvert-preview
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "index.html"
+      - "robots.txt"
+      - "assets/**"
+  workflow_dispatch:
+
+concurrency:
+  group: antonvert-preview-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to Cloudflare Pages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Prepare static site
+        run: |
+          rm -rf dist
+          mkdir -p dist
+          cp index.html dist/
+          cp robots.txt dist/
+          cp -R assets dist/assets
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=antonvert-preview --branch=main --commit-hash=${{ github.sha }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
