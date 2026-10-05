@@ -78,6 +78,7 @@
     .hero h1 { max-width: 750px; font-size: clamp(2.5rem, 3.85vw, 4rem); text-wrap: balance; }
     .hero-lead { max-width: 600px; margin: 22px 0 0; color: var(--ink); font-size: 1.15rem; line-height: 1.55; }
     .hero-personal { max-width: 685px; margin: 28px 0 0; padding-left: 18px; border-left: 3px solid #aec3e0; color: var(--muted); font-size: 1rem; }
+    .hero-audience { margin: 18px 0 0; color: #34435b; font-size: .88rem; font-weight: 700; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
     .intro-note { max-width: 610px; margin: 13px 0 0; color: #707d8e; font-size: .82rem; }
     .hero-photo { position: relative; min-height: 580px; overflow: hidden; border-radius: 0 0 145px 0; background: var(--blue-soft); }
@@ -160,7 +161,8 @@
     .contact-action strong { display: block; font-family: var(--serif); font-size: 1.4rem; font-weight: 400; }
     .contact-action span { display: block; margin-top: 8px; color: var(--muted); font-size: .84rem; }
     .contact-email { display: block; margin-top: 10px; color: var(--blue-dark); font-size: .84rem; font-weight: 750; }
-    .contact-action .button { width: 100%; margin-top: 19px; }
+    .contact-buttons { display: grid; gap: 10px; margin-top: 19px; }
+    .contact-action .button { width: 100%; margin-top: 0; }
     .movement-photo { position: relative; align-self: center; height: 280px; min-height: 0; overflow: hidden; border-radius: 18px; background: #fff; }
     .movement-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; transform: scale(1.14); transform-origin: center bottom; }
 
@@ -280,6 +282,7 @@
           <h1 id="hero-title" class="display">Помогаю основателям находить клиентов</h1>
           <p class="hero-lead">Через личное общение и публичность. Помогаю выстроить передачу продаж команде.</p>
           <p class="hero-personal">Я продолжаю развивать свои проекты и сам участвую в продажах. В работе с вами опираюсь на собственный опыт - удачные решения, ошибки и задачи, которые решаю сейчас.</p>
+          <p class="hero-audience">Для основателей на раннем этапе — от первых продаж до команды в 200 человек.</p>
           <div class="hero-actions"><a class="button button-primary" href="#contact">Договориться об интро</a><a class="button button-secondary" href="#formats">Посмотреть форматы работы</a></div>
           <p class="intro-note">20 минут, чтобы познакомиться, обсудить задачу и выбрать формат работы.</p>
         </div>
@@ -344,12 +347,12 @@
       <div class="container">
         <p class="kicker">Как начинаем</p><h2 id="contact-title" class="display section-title">Путь от знакомства к работе</h2>
         <div class="process" aria-label="Этапы начала работы"><article class="process-step"><b>01</b><h3>Договариваемся об интро</h3><p>Вы коротко описываете задачу, мы выбираем время разговора.</p></article><article class="process-step"><b>02</b><h3>Знакомимся за 20 минут</h3><p>Обсуждаем вашу ситуацию, желаемый результат и подходящий формат.</p></article><article class="process-step"><b>03</b><h3>Согласовываем предложение</h3><p>Я предлагаю план, ожидаемый результат работы и стоимость.</p></article><article class="process-step"><b>04</b><h3>Оплата</h3><p>Вы оплачиваете согласованный формат.</p></article><article class="process-step"><b>05</b><h3>Начинаем работу</h3><p>Действуем по согласованному плану.</p></article></div>
-        <div class="contact-panel"><div><p class="kicker">Обращение</p><h2 class="display">Расскажите, какую задачу хотите решить</h2><p>Напишите пару слов о себе, бизнесе и результате, к которому хотите прийти. Договоримся о 20-минутном интро и обсудим, чем я могу помочь.</p></div><div class="contact-action"><strong>Написать Антону</strong><span>Коротко опишите себя, бизнес и желаемый результат.</span><a class="contact-email" href="mailto:a@vert.expert">a@vert.expert</a><a class="button button-primary" href="mailto:a@vert.expert?subject=Интро:%20моя%20задача&amp;body=Здравствуйте,%20Антон!%0A%0AКоротко%20обо%20мне%20и%20бизнесе:%20%0A%0AЗадача%20и%20желаемый%20результат:%20">Написать письмо</a></div><div class="movement-photo"><img src="assets/anton-walk.jpeg" width="853" height="1280" loading="lazy" alt="Антон Верт идёт в полный рост"></div></div>
+        <div class="contact-panel"><div><p class="kicker">Обращение</p><h2 class="display">Расскажите, какую задачу хотите решить</h2><p>Напишите пару слов о себе, бизнесе и результате, к которому хотите прийти. Договоримся о 20-минутном интро и обсудим, чем я могу помочь.</p></div><div class="contact-action"><strong>Написать Антону</strong><span>Коротко опишите себя, бизнес и желаемый результат.</span><a class="contact-email" href="mailto:a@vert.expert">a@vert.expert</a><div class="contact-buttons"><a class="button button-primary" href="https://t.me/vertanton" target="_blank" rel="noopener noreferrer">Написать в Telegram</a><a class="button button-secondary" href="mailto:a@vert.expert?subject=Интро:%20моя%20задача&amp;body=Здравствуйте,%20Антон!%0A%0AКоротко%20обо%20мне%20и%20бизнесе:%20%0A%0AЗадача%20и%20желаемый%20результат:%20">Написать письмо</a></div></div><div class="movement-photo"><img src="assets/anton-walk.jpeg" width="853" height="1280" loading="lazy" alt="Антон Верт идёт в полный рост"></div></div>
       </div>
     </section>
   </main>
 
-  <footer><div class="container footer-row"><div><a class="brand" href="#top">Антон Верт</a><div class="footer-meta">Консультант-практик по B2B-продажам и доверительным коммуникациям</div></div><div class="footer-links"><a href="mailto:a@vert.expert">a@vert.expert</a><a href="https://vert.expert/" target="_blank" rel="noopener noreferrer">vert.expert</a><a href="https://www.youtube.com/@vertexpert" target="_blank" rel="noopener noreferrer">YouTube</a></div></div></footer>
+  <footer><div class="container footer-row"><div><a class="brand" href="#top">Антон Верт</a><div class="footer-meta">Консультант-практик по B2B-продажам и доверительным коммуникациям</div></div><div class="footer-links"><a href="https://t.me/vertanton" target="_blank" rel="noopener noreferrer">Telegram</a><a href="mailto:a@vert.expert">a@vert.expert</a><a href="https://vert.expert/" target="_blank" rel="noopener noreferrer">vert.expert</a><a href="https://www.youtube.com/@vertexpert" target="_blank" rel="noopener noreferrer">YouTube</a></div></div></footer>
   <script>
     const mobileMenu = document.querySelector('.mobile-menu');
     mobileMenu.addEventListener('click', (event) => { if (event.target.closest('a')) mobileMenu.open = false; });
