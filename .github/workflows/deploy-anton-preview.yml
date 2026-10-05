@@ -8,10 +8,17 @@ on:
       - "index.html"
       - "robots.txt"
       - "assets/**"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "index.html"
+      - "robots.txt"
+      - "assets/**"
   workflow_dispatch:
 
 concurrency:
-  group: antonvert-preview-production
+  group: antonvert-preview-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -39,5 +46,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=antonvert-preview --branch=main --commit-hash=${{ github.sha }}
+          command: pages deploy dist --project-name=antonvert-preview --branch=${{ github.event_name == 'pull_request' && format('preview-{0}', github.event.pull_request.number) || 'main' }} --commit-hash=${{ github.sha }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
