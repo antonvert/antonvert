@@ -7,14 +7,18 @@ on:
     paths:
       - "index.html"
       - "robots.txt"
+      - "_headers"
       - "assets/**"
+      - ".github/workflows/deploy-anton-preview.yml"
   pull_request:
     branches:
       - main
     paths:
       - "index.html"
       - "robots.txt"
+      - "_headers"
       - "assets/**"
+      - ".github/workflows/deploy-anton-preview.yml"
   workflow_dispatch:
 
 concurrency:
@@ -39,6 +43,7 @@ jobs:
           mkdir -p dist
           cp index.html dist/
           cp robots.txt dist/
+          cp _headers dist/
           cp -R assets dist/assets
 
       - name: Deploy
