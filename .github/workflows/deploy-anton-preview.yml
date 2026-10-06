@@ -1,0 +1,55 @@
+name: Deploy antonvert-preview
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "index.html"
+      - "robots.txt"
+      - "_headers"
+      - "assets/**"
+      - ".github/workflows/deploy-anton-preview.yml"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "index.html"
+      - "robots.txt"
+      - "_headers"
+      - "assets/**"
+      - ".github/workflows/deploy-anton-preview.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: antonvert-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Deploy to Cloudflare Pages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Prepare static site
+        run: |
+          rm -rf dist
+          mkdir -p dist
+          cp index.html dist/
+          cp robots.txt dist/
+          cp _headers dist/
+          cp -R assets dist/assets
+
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=antonvert-preview --branch=${{ github.event_name == 'pull_request' && format('preview-{0}', github.event.pull_request.number) || 'main' }} --commit-hash=${{ github.sha }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
