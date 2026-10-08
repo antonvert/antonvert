@@ -143,7 +143,7 @@
     .book-art--mockup img { width: 100%; height: 100%; transform: translate(-50%, -50%) scale(2.03); }
     .book-art--trust img { box-shadow: 0 9px 20px rgba(25, 35, 52, .1); }
     /* The source is square: hide only the blue photo field around the physical book. */
-    .book-art--energy img { height: 100%; aspect-ratio: 1; clip-path: inset(4% 16.8% 3.2%); }
+    .book-art--energy img { height: 100%; aspect-ratio: 1; clip-path: inset(4% 17.6% 3.2% 16.8%); }
     .book-card-copy { display: flex; flex: 1; flex-direction: column; padding: 23px 4px 3px; }
     .book-status { color: var(--blue); font-size: .73rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
     .book-card h3 { margin: 15px 0 9px; font-family: var(--serif); font-size: clamp(1.5rem, 1.9vw, 1.95rem); font-weight: 400; line-height: 1.2; }
@@ -171,13 +171,14 @@
     .contact-panel h2 { max-width: 650px; font-size: clamp(2.2rem, 3.8vw, 4rem); }
     .contact-panel p { margin: 17px 0 0; color: var(--muted); }
     .contact-action { padding: 24px; border-radius: 18px; background: #fff; box-shadow: 0 12px 30px rgba(33, 55, 91, .07); }
-    .contact-action strong { display: block; font-family: var(--serif); font-size: 1.4rem; font-weight: 400; }
+    .contact-action > strong { display: block; font-family: var(--serif); font-size: 1.4rem; font-weight: 400; }
     .contact-action span { display: block; margin-top: 8px; color: var(--muted); font-size: .84rem; }
     .contact-email { display: block; margin-top: 10px; color: var(--blue-dark); font-size: .84rem; font-weight: 750; }
-    .contact-buttons { display: grid; gap: 10px; margin-top: 19px; }
+    .contact-buttons { display: grid; gap: 10px; }
     .contact-action .button { width: 100%; margin-top: 0; }
+    .contact-action > .button { margin-top: 18px; }
     .movement-photo { position: relative; align-self: center; height: 280px; min-height: 0; overflow: hidden; border-radius: 18px; background: #fff; }
-    .movement-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; transform: scale(1.14); transform-origin: center bottom; }
+    .movement-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: 50% 100%; }
 
     footer { padding: 32px 0 40px; border-top: 1px solid var(--line); background: var(--bg); }
     .footer-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
@@ -201,8 +202,7 @@
       .hero h1 { font-size: clamp(2.45rem, 4.6vw, 3.45rem); }
       .about-grid { gap: 42px; }
       .book-art { height: 270px; }
-      .contact-panel { grid-template-columns: 1fr .7fr; }
-      .movement-photo { display: none; }
+      .contact-panel { grid-template-columns: minmax(0, 1fr) minmax(260px, .72fr) minmax(180px, .42fr); gap: 22px; padding: 32px; }
       .process { grid-template-columns: repeat(3, 1fr); }
       .process-step:nth-child(4) { border-left: 0; }
       .process-step:nth-child(n+4) { border-top: 1px solid var(--line); }
@@ -257,8 +257,7 @@
       .process-step:first-child { border-top: 0; }
       .process-step h3 { margin-top: 9px; }
       .contact-panel { grid-template-columns: 1fr; padding: 27px 20px; }
-      .movement-photo { display: block; align-self: stretch; height: auto; min-height: 390px; order: -1; }
-      .movement-photo img { transform: none; }
+      .movement-photo { align-self: stretch; width: min(100%, 360px); height: auto; aspect-ratio: 2 / 3; margin-inline: auto; }
       .footer-row { display: block; }
       .footer-links { margin-top: 17px; }
       .analytics-consent { right: 14px; bottom: 14px; width: calc(100% - 28px); padding: 18px; }
@@ -294,7 +293,7 @@
     .hero-photo img { object-position: 50% 24%; }
     .about-copy > p { line-height: 1.65; }
     .book-card { background: #f6f7f9; }
-    .contact-panel { grid-template-columns: minmax(0, 1fr) minmax(320px, .85fr); margin-top: 0; gap: 42px; padding: 44px; }
+    .contact-panel { grid-template-columns: minmax(0, 1fr) minmax(300px, .84fr) minmax(190px, .46fr); margin-top: 0; gap: 30px; padding: 44px; }
     .contact-panel h2 { max-width: 680px; }
     .contact-action { padding: 25px; }
     .contact-availability { margin: 12px 0 0 !important; font-size: .76rem; }
@@ -303,7 +302,7 @@
       .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(320px, .83fr); }
       .hero-copy { padding: 20px 22px; }
       .hero h1 { font-size: clamp(2.15rem, 4.1vw, 3rem); }
-      .contact-panel { grid-template-columns: 1fr .85fr; }
+      .contact-panel { grid-template-columns: minmax(0, 1fr) minmax(260px, .72fr) minmax(180px, .42fr); }
     }
     @media (max-width: 900px) {
       .hero-grid { grid-template-columns: 1fr; }
@@ -326,9 +325,6 @@
       .contact-action { padding: 20px; }
     }
 
-    .brand-square { width: 58px; height: 58px; flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; border: 1px solid #dbe3ee; border-radius: 3px; color: #192334; background: #fff; font-size: .89rem; font-weight: 800; line-height: 1.22; letter-spacing: -.04em; }
-    .brand-square span { display: block; }
-    @media (max-width: 760px) { .brand-square { width: 48px; height: 48px; font-size: .76rem; } }
   </style>
 </head>
 <body>
@@ -336,16 +332,16 @@
   <header class="site-header">
     <div class="container nav">
       <div class="nav-left">
-        <a class="brand brand-square" href="#top" aria-label="Антон Верт - на главную"><span>Антон</span><span>Верт</span></a>
+        <a class="brand" href="#top" aria-label="Антон Верт - на главную">Антон Верт</a>
         <nav class="nav-links" aria-label="Основная навигация">
-          <a href="#top">Главная</a><a href="#situations">Полезность</a><a href="#about">Опыт</a><a href="#approach">Подход</a><a href="#books">Книги</a><a href="#formats">Форматы</a><a href="#contact">Обращение</a>
+          <a href="#situations">Полезность</a><a href="#about">Опыт</a><a href="#approach">Подход</a><a href="#books">Книги</a><a href="#formats">Форматы</a>
         </nav>
         <details class="mobile-menu">
           <summary>Меню</summary>
-          <nav aria-label="Навигация по разделам"><a href="#top">Главная</a><a href="#situations">Полезность</a><a href="#about">Опыт</a><a href="#approach">Подход</a><a href="#books">Книги</a><a href="#formats">Форматы</a><a href="#contact">Обращение</a></nav>
+          <nav aria-label="Навигация по разделам"><a href="#situations">Полезность</a><a href="#about">Опыт</a><a href="#approach">Подход</a><a href="#books">Книги</a><a href="#formats">Форматы</a></nav>
         </details>
       </div>
-      <a class="button button-primary header-cta" href="#contact" data-ga-event="header_intro"><span class="cta-full">Договориться об интро</span><span class="cta-short">Интро</span></a>
+      <a class="button button-primary header-cta" href="#contact" data-ga-event="header_intro">Записаться на интро</a>
     </div>
   </header>
 
@@ -455,19 +451,18 @@
       <div class="container">
         <div class="contact-panel">
           <div class="contact-copy">
-            <p class="kicker">Обращение</p><h2 id="contact-title" class="display">Расскажите о вашей задаче</h2>
-            <p>Я посмотрю контекст и предложу, как можем двигаться дальше.</p>
+            <h2 id="contact-title" class="display">Связаться со мной</h2>
+            <p>Напишите удобным способом.</p>
           </div>
           <div class="contact-action">
-            <strong>Выберите удобный способ</strong>
-            <span>20 минут на знакомство или сообщение с коротким описанием задачи.</span>
             <div class="contact-buttons">
-              <a class="button button-primary" id="intro-calendar" data-ga-event="contact_intro_calendly" href="https://calendly.com/vert-anton/30min" target="_blank" rel="noopener noreferrer">Записаться на 20-минутное интро</a>
               <a class="button button-secondary" href="https://t.me/vertanton" target="_blank" rel="noopener noreferrer" data-ga-event="contact_telegram">Написать в Telegram</a>
               <a class="button button-secondary" href="mailto:a@vert.expert?subject=%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D0%90%D0%BD%D1%82%D0%BE%D0%BD%D0%B0" data-ga-event="contact_email">Написать на email</a>
             </div>
-            <p class="contact-availability">Выберите удобное время для 20-минутного интро в Calendly.</p>
+            <p class="contact-availability">Или выберите время для <strong>20-минутного интро</strong>, чтобы познакомиться и коротко обсудить задачу.</p>
+            <a class="button button-primary" id="intro-calendar" data-ga-event="contact_intro_calendly" href="https://calendly.com/vert-anton/30min" target="_blank" rel="noopener noreferrer">Записаться на интро</a>
           </div>
+          <div class="movement-photo"><img src="assets/anton-walk.jpeg" width="853" height="1280" loading="lazy" alt="Антон Верт идёт вперёд"></div>
         </div>
       </div>
     </section>
