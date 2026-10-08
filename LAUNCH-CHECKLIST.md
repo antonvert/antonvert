@@ -47,13 +47,12 @@
 - [x] Google Analytics does not load before explicit consent.
 - [x] Accept and decline choices persist; analytics settings can be reopened from the footer.
 - [x] After consent, exactly one GA4 tag loads; CTA/contact/project/social/book click events are instrumented.
-- [ ] GA4 reporting UI still shows no traffic for the previous 48 hours immediately after launch. Recheck once Google processes the first consented production events.
+- [x] GA4 Realtime confirmed the production page title, one active user and the first `page_view`, `scroll`, `first_visit` and `session_start` events after consent.
 
 ## Remaining owner follow-up
 
 - [ ] Provide the booking URL for the 20-minute intro (Calendly or equivalent). Until then, the intro action opens a pre-addressed email draft and clearly explains that calendar booking is being connected.
 - [ ] Grant Search Console access or verify the property, then submit the sitemap.
-- [ ] Confirm the first production events in GA4 after processing.
 
 ## Links
 
