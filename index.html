@@ -5,17 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow,noarchive">
   <meta name="theme-color" content="#fafbfd">
-  <title>Антон Верт — B2B-продажи и доверительные коммуникации</title>
-  <meta name="description" content="Антон Верт помогает предпринимателям и основателям находить клиентов через личное общение и публичность и передавать продажи команде.">
+  <title>Антон Верт - предприниматель и консультант по B2B-продажам</title>
+  <meta name="description" content="Антон Верт помогает основателям международных B2B-компаний привлекать клиентов лично и публично и передавать отношения команде без потери доверия.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ru_RU">
-  <meta property="og:title" content="Антон Верт — консультант-практик по B2B-продажам">
-  <meta property="og:description" content="Личное общение, публичное привлечение клиентов и передача продаж команде.">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:title" content="Антон Верт - продажи через доверие">
+  <meta property="og:description" content="Помогаю основателям привлекать клиентов лично и публично и передавать отношения команде без потери доверия.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:site_name" content="Антон Верт">
+  <meta property="og:url" content="https://antonvert.com/">
+  <link rel="canonical" href="https://antonvert.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Prata&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'%3E%3Crect width='96' height='96' rx='22' fill='%233f69af'/%3E%3Ctext x='48' y='50' text-anchor='middle' dominant-baseline='middle' fill='white' font-family='Arial,sans-serif' font-size='23' font-weight='700'%3E%D0%92%D0%B5%D1%80%D1%82%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <!-- GA4 Measurement ID -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LFD43SGSP2"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-LFD43SGSP2');
+  </script>
   <style>
     :root {
       --bg: #fafbfd;
@@ -254,6 +265,61 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { transition-duration: .01ms !important; }
     }
+
+    /* Anton's feedback: a framed, social-post-friendly first screen. */
+    .nav-links { gap: 15px; font-size: .81rem; }
+    .nav-left { gap: 26px; }
+    .hero { padding: 40px 0 72px; overflow: visible; }
+    .hero-grid { grid-template-columns: minmax(0, 1.08fr) minmax(350px, .92fr); gap: 0; align-items: stretch; padding: 16px; border: 1px solid #d8e2ed; border-radius: 30px; background: linear-gradient(140deg, #fff 0%, #fff 62%, #f2f6fb 100%); box-shadow: 0 24px 60px rgba(32, 57, 93, .07); }
+    .hero-copy { display: flex; flex-direction: column; justify-content: center; padding: 32px 30px; }
+    .hero-role { margin-bottom: 18px; font-size: .77rem; line-height: 1.5; }
+    .hero h1 { max-width: 670px; font-size: clamp(2.12rem, 3.45vw, 3.52rem); line-height: 1.12; }
+    .hero-lead { margin-top: 19px; font-size: 1.03rem; }
+    .hero-personal { margin-top: 22px; padding-left: 15px; font-size: .94rem; line-height: 1.6; }
+    .hero-audience { margin-top: 16px; font-size: .85rem; line-height: 1.52; }
+    .hero-actions { margin-top: 22px; }
+    .hero-photo { min-height: 620px; border-radius: 14px 14px 100px 14px; }
+    .hero-photo img { object-position: 50% 24%; }
+    .about-copy > p { line-height: 1.65; }
+    .book-art, .book-art--mockup { background: #e5e5e5; }
+    .book-art--trust img { padding: 10px; object-fit: contain; }
+    .book-art--energy img { padding: 0; object-fit: cover; }
+    .book-card { background: #f6f7f9; }
+    .contact-panel { grid-template-columns: minmax(0, 1fr) minmax(320px, .85fr); margin-top: 0; gap: 42px; padding: 44px; }
+    .contact-panel h2 { max-width: 680px; }
+    .contact-action { padding: 25px; }
+    .contact-availability { margin: 12px 0 0 !important; font-size: .76rem; }
+    .services-grid .service-card { min-height: 415px; }
+    @media (max-width: 1100px) {
+      .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(320px, .83fr); }
+      .hero-copy { padding: 20px 22px; }
+      .hero h1 { font-size: clamp(2.15rem, 4.1vw, 3rem); }
+      .contact-panel { grid-template-columns: 1fr .85fr; }
+    }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-copy { padding: 29px 27px 24px; }
+      .hero-photo { min-height: 550px; }
+      .contact-panel { grid-template-columns: 1fr; }
+      .services-grid .service-card { min-height: 0; }
+    }
+    @media (max-width: 760px) {
+      .hero { padding-top: 22px; }
+      .hero-grid { padding: 12px; border-radius: 22px; }
+      .hero-copy { padding: 21px 14px 25px; }
+      .hero-role { font-size: .73rem; }
+      .hero h1 { font-size: clamp(2rem, 8.4vw, 3.15rem); }
+      .hero-personal { margin-top: 18px; }
+      .hero-photo { min-height: 0; border-radius: 16px 16px 62px 16px; overflow: hidden; background: var(--blue-soft); }
+      .hero-photo img { border-radius: 16px 16px 62px 16px; }
+      .hero-quote { margin: 0 8px 8px; padding: 12px 4px 3px; }
+      .contact-panel { padding: 25px 20px; }
+      .contact-action { padding: 20px; }
+    }
+
+    .brand-square { width: 58px; height: 58px; flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; border: 1px solid #dbe3ee; border-radius: 3px; color: #192334; background: #fff; font-size: .89rem; font-weight: 800; line-height: 1.22; letter-spacing: -.04em; }
+    .brand-square span { display: block; }
+    @media (max-width: 760px) { .brand-square { width: 48px; height: 48px; font-size: .76rem; } }
   </style>
 </head>
 <body>
@@ -261,13 +327,13 @@
   <header class="site-header">
     <div class="container nav">
       <div class="nav-left">
-        <a class="brand" href="#top" aria-label="Антон Верт — в начало страницы">Антон Верт</a>
+        <a class="brand brand-square" href="#top" aria-label="Антон Верт - на главную"><span>Антон</span><span>Верт</span></a>
         <nav class="nav-links" aria-label="Основная навигация">
-          <a href="#situations">Чем помогу</a><a href="#about">Опыт</a><a href="#approach">Подход</a><a href="#books">Книги</a><a href="#formats">Форматы</a>
+          <a href="#top">Главная</a><a href="#situations">Полезность</a><a href="#about">Опыт</a><a href="#approach">Подход</a><a href="#books">Книги</a><a href="#formats">Форматы</a><a href="#contact">Обращение</a>
         </nav>
         <details class="mobile-menu">
           <summary>Меню</summary>
-          <nav aria-label="Навигация по разделам"><a href="#situations">Чем помогу</a><a href="#about">Опыт</a><a href="#approach">Подход</a><a href="#books">Книги</a><a href="#formats">Форматы</a><a href="#contact">Контакт</a></nav>
+          <nav aria-label="Навигация по разделам"><a href="#top">Главная</a><a href="#situations">Полезность</a><a href="#about">Опыт</a><a href="#approach">Подход</a><a href="#books">Книги</a><a href="#formats">Форматы</a><a href="#contact">Обращение</a></nav>
         </details>
       </div>
       <a class="button button-primary header-cta" href="#contact"><span class="cta-full">Договориться об интро</span><span class="cta-short">Интро</span></a>
@@ -275,84 +341,132 @@
   </header>
 
   <main id="main">
-    <section id="top" class="hero" aria-labelledby="hero-title">
+<section id="top" class="hero" aria-labelledby="hero-title">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="kicker hero-role">Консультант-практик по B2B-продажам и доверительным коммуникациям</p>
-          <h1 id="hero-title" class="display">Помогаю основателям находить клиентов</h1>
-          <p class="hero-lead">Через личное общение и публичность. Помогаю выстроить передачу продаж команде.</p>
-          <p class="hero-personal">Я продолжаю развивать свои проекты и сам участвую в продажах. В работе с вами опираюсь на собственный опыт - удачные решения, ошибки и задачи, которые решаю сейчас.</p>
-          <p class="hero-audience">Для основателей на раннем этапе — от первых продаж до команды в 200 человек.</p>
-          <div class="hero-actions"><a class="button button-primary" href="#contact">Договориться об интро</a><a class="button button-secondary" href="#formats">Посмотреть форматы работы</a></div>
-          <p class="intro-note">20 минут, чтобы познакомиться, обсудить задачу и выбрать формат работы.</p>
+          <p class="kicker hero-role">Предприниматель, консультант по B2B-продажам и доверительным коммуникациям</p>
+          <h1 id="hero-title" class="display">Помогаю основателям привлекать клиентов лично и публично</h1>
+          <p class="hero-lead">И передавать отношения команде без потери доверия, контекста и качества коммуникации.</p>
+          <p class="hero-personal">С 2007 года строю B2B-бизнесы и сам продолжаю проходить этот путь: привлекаю клиентов через встречи, конференции, networking, контент и публичность, а дальше передаю работу команде.</p>
+          <p class="hero-audience">Мой фокус - основатели небольших международных B2B-компаний, где продажи заметно зависят от первого лица.</p>
+          <div class="hero-actions"><a class="button button-primary" href="#contact">Обсудить вашу задачу</a><a class="button button-secondary" href="#situations">Чем могу быть полезен</a></div>
         </div>
-        <div class="hero-photo"><img src="assets/anton-hero-smile.jpeg" width="853" height="1280" alt="Улыбающийся Антон Верт сидит в кресле" fetchpriority="high"><blockquote class="hero-quote">B2B-продажи начинаются с доверия</blockquote></div>
+        <div class="hero-photo"><img src="assets/anton-hero-smile.jpeg" width="853" height="1280" alt="Антон Верт" fetchpriority="high"><blockquote class="hero-quote">B2B-продажи начинаются с доверия</blockquote></div>
       </div>
     </section>
 
-    <section id="situations" class="section situations" aria-labelledby="situations-title">
+
+<section id="situations" class="section situations" aria-labelledby="situations-title">
       <div class="container">
-        <div class="section-head"><div><p class="kicker">Задачи</p><h2 id="situations-title" class="display section-title">Чем я могу быть полезен</h2></div><p class="section-intro">Можно начать с одной задачи: первых контактов, усиления личного и публичного участия или передачи продаж команде.</p></div>
+        <div class="section-head"><div><p class="kicker">Полезность</p><h2 id="situations-title" class="display section-title">Чем могу быть полезен</h2></div><p class="section-intro">Сначала основатель создаёт доверие. Потом превращает его в клиента. А дальше передаёт клиента команде так, чтобы это доверие не потерялось.</p></div>
         <div class="situation-grid">
-          <article class="situation-card"><span class="situation-number">01</span><h3>Сделать первые шаги в продажах</h3><p>Помогаю определить, кому и что вы предлагаете, подготовить представление себя и бизнеса, первые встречи, выступления и выход в соцсети. Вместе намечаем действия и шаги после первого контакта.</p></article>
-          <article class="situation-card"><span class="situation-number">02</span><h3>Усилить личное и публичное привлечение</h3><p>Помогаю связать личное общение, соцсети, контент и выступления с привлечением клиентов. Выбираем подходящие площадки и регулярность участия. Профессиональную книгу и новые публичные роли рассматриваем, если они помогают вашей задаче.</p></article>
-          <article class="situation-card"><span class="situation-number">03</span><h3>Передать продажи и отношения команде</h3><p>Помогаю распределить роли и ответственность, настроить передачу контактов и работу со сделками. Команда продолжает общение с клиентами, сохраняя контекст и доверие к компании.</p></article>
+          <article class="situation-card"><span class="situation-number">01</span><h3>Продавать лично</h3><p>Подготовиться к конференции, встрече или сложным переговорам. Понять, кому писать, как представляться, как продолжить контакт и как довести знакомство до реальной возможности.</p></article>
+          <article class="situation-card"><span class="situation-number">02</span><h3>Продавать публично</h3><p>Использовать социальные сети, контент, выступления, интервью, статьи, книги и профессиональную репутацию как канал привлечения клиентов.</p></article>
+          <article class="situation-card"><span class="situation-number">03</span><h3>Передавать продажи команде</h3><p>Передать клиента после личного контакта так, чтобы команда сохранила договорённости, контекст и доверие, а основатель не возвращался в каждую переписку и не спасал отношения вручную.</p></article>
         </div>
       </div>
     </section>
 
-    <section id="about" class="section about" aria-labelledby="about-title">
+
+<section id="about" class="section about" aria-labelledby="about-title">
       <div class="container about-grid">
         <div class="about-photo"><img src="assets/anton-about-smile.jpeg" width="853" height="1280" loading="lazy" alt="Антон Верт улыбается, стоя в тёмном пиджаке"></div>
         <div class="about-copy">
-          <p class="kicker">Опыт и практика</p><h2 id="about-title" class="display section-title">Применяю подход в собственных проектах</h2>
-          <p>В моём опыте есть и личное привлечение клиентов, и развитие публичности, и передача работы команде. В консультациях опираюсь на пройденные этапы и задачи, с которыми продолжаю работать сам.</p>
-          <div class="about-stats"><div class="about-stat"><strong>19 лет</strong><span>в продажах и предпринимательстве</span></div><div class="about-stat"><strong>13</strong><span>бизнесов и проектов</span></div><div class="about-stat"><strong>3000+</strong><span>рабочих встреч</span></div></div>
+          <p class="kicker">Опыт и практика</p><h2 id="about-title" class="display section-title">Сам прохожу тот путь, о котором говорю</h2>
+          <p>С 2007 года строю B2B-бизнесы. Много лет сам привлекал клиентов через личные связи, встречи, networking, публичность и репутацию.</p>
+          <p>Потом учился передавать отношения команде так, чтобы клиент не чувствовал: «Основатель исчез - и всё стало хуже».</p>
+          <p>И продолжаю решать эти задачи сейчас.</p>
+          <div class="about-stats"><div class="about-stat"><strong>19 лет</strong><span>предпринимательства</span></div><div class="about-stat"><strong>13</strong><span>бизнесов и проектов</span></div><div class="about-stat"><strong>3000+</strong><span>рабочих встреч</span></div></div>
           <div class="experience-list">
-            <div class="experience-item"><b>01</b><div><p><a class="project-title" href="https://vertcomm.group/" target="_blank" rel="noopener noreferrer">vertcomm</a> — в бизнесе сувенирной продукции для рынков ЕАЭС выстраивал канал продаж через личный нетворкинг и публичную деятельность. Настраивал обработку заявок и постепенную передачу работы команде без активного отдела продаж.</p></div></div>
-            <div class="experience-item"><b>02</b><div><p><a class="project-title" href="https://swaggy.agency/" target="_blank" rel="noopener noreferrer">Swaggy</a> — развиваю продажи через личное общение, публичность и системную работу команды развития бизнеса. Компания работает с рекламной продукцией в <strong>55+ странах</strong>.</p></div></div>
-            <div class="experience-item"><b>03</b><div><p><a class="project-title" href="https://vert.expert/" target="_blank" rel="noopener noreferrer">vert.expert</a> — развиваю продажи через личный бренд и экспертизу. Использую выступления, интервью и модерацию конференций, чтобы укреплять доверие и получать релевантные обращения.</p><div class="project-links"><a class="text-link" href="https://www.youtube.com/@vertexpert" target="_blank" rel="noopener noreferrer">Выступления и интервью</a></div></div></div>
+            <div class="experience-item"><b>01</b><div><p><a class="project-title" href="https://vertcomm.group/" target="_blank" rel="noopener noreferrer">vertcomm</a> - корпоративные бизнес-подарки в странах ЕАЭС. Много лет сам был главным источником продаж: личные контакты, встречи, networking и публичность. Дальше клиентская работа переходила в аккаунтинг и команду.</p></div></div>
+            <div class="experience-item"><b>02</b><div><p><a class="project-title" href="https://swaggy.agency/" target="_blank" rel="noopener noreferrer">SWAGGY agency</a> - международное агентство мерча и рекламной продукции в 55+ странах. Сейчас выстраиваю следующий этап: публичное привлечение, bizdev-направление и передачу возможностей команде, чтобы продажи меньше зависели от моего личного участия.</p></div></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="approach" class="section trust" aria-labelledby="approach-title">
-      <div class="container">
-        <p class="kicker">Моя авторская методика</p><h2 id="approach-title" class="display section-title">Доверие строится на трёх уровнях</h2><p class="section-intro">В работе связываю личное общение, публичную репутацию и действия компании. Этот подход применяю в своих проектах и описываю в книгах «Продажи от сердца» и «Компания доверия».</p>
-        <div class="trust-grid"><article class="trust-card"><span class="trust-index">01</span><h3>Личное доверие</h3><p>Помогаю выстраивать общение, в котором можно понять задачу клиента, договориться и продолжить отношения после первой встречи.</p></article><article class="trust-card"><span class="trust-index">02</span><h3>Публичное доверие</h3><p>Помогаю показывать вашу экспертизу через контент, выступления и авторские материалы, чтобы знакомство с вами начиналось ещё до личного разговора.</p></article><article class="trust-card"><span class="trust-index">03</span><h3>Системное доверие</h3><p>Помогаю передавать отношения команде: сохранять договорённости и контекст, распределять ответственность и выполнять обещания компании.</p></article></div>
-      </div>
-    </section>
 
-    <section id="books" class="section books" aria-labelledby="books-title">\n      <!-- books-preview: three cards including Sila merch -->
+<section id="approach" class="section trust" aria-labelledby="approach-title">
       <div class="container">
-        <div class="book-intro"><div class="book-intro-copy"><p class="kicker">Книги</p><h2 id="books-title" class="display section-title">Книги и авторский подход</h2><p>В книгах собираю свой опыт продаж, предпринимательства и доверительных коммуникаций. Сейчас пишу «Продажи от сердца» и «Компанию доверия». Ранее написал «Силу мерча» о роли бизнес-подарков в работе компании.</p></div><div class="book-person"><img src="assets/anton-heart-v3.jpeg" width="934" height="1280" loading="lazy" alt="Антон Верт показывает жест сердца руками"></div></div>
-        <div class="books-grid">
-          <article class="book-card"><div class="book-art book-art--mockup"><img src="assets/book-blue.jpeg" width="1120" height="1280" loading="lazy" alt="Обложка книги «Продажи от сердца»"></div><div class="book-card-copy"><span class="book-status">В работе</span><h3>«Продажи от сердца»</h3><p class="book-subtitle">Доверительные коммуникации в B2B-продажах</p><p class="book-description">О личном общении, публичности и передаче доверия от первого лица компании к команде. Собираю опыт и инструменты для долгих отношений с клиентами.</p><a class="text-link" href="https://salesfromheart.com/" target="_blank" rel="noopener noreferrer">О книге и подходе</a></div></article>
-          <article class="book-card"><div class="book-art"><img src="assets/book-company-trust-v4.jpeg" width="853" height="1280" loading="lazy" alt="Обложка книги «Компания доверия»"></div><div class="book-card-copy"><span class="book-status">В работе</span><h3>«Компания доверия»</h3><p class="book-subtitle">Доверительные коммуникации в бизнесе</p><p class="book-description">О том, как компания выстраивает доверие и поддерживает его в повседневной работе с клиентами и командой.</p></div></article>
-          <article class="book-card"><div class="book-art book-art--mockup book-art--merch"><img src="assets/book-merch-v4.jpeg" width="1280" height="960" loading="lazy" alt="Обложка книги «Сила мерча»"></div><div class="book-card-copy"><span class="book-status">Издана</span><h3>«Сила мерча»</h3><p class="book-subtitle">Бизнес-подарки в HR и маркетинге</p><p class="book-description">О том, как бизнес-подарки помогают компании общаться с сотрудниками и клиентами и решать задачи HR и маркетинга.</p><a class="text-link" href="https://energymerch.taplink.bio/" target="_blank" rel="noopener noreferrer">О книге</a></div></article>
+        <p class="kicker">Моя авторская методика</p>
+        <h2 id="approach-title" class="display section-title">Лично → публично → системно</h2>
+        <p class="section-intro">Три плоскости одной задачи: создать доверие, превратить его в клиента и передать отношения команде без потери контекста.</p>
+        <div class="trust-grid">
+          <article class="trust-card"><span class="trust-index">01</span><h3>Личное доверие</h3><p>Как основатель знакомится, ведёт разговор, слушает, договаривается и продолжает отношения.</p></article>
+          <article class="trust-card"><span class="trust-index">02</span><h3>Публичное доверие</h3><p>Что клиент знает о вас до первой встречи: контент, комментарии, выступления, интервью, книги, профессиональная репутация.</p></article>
+          <article class="trust-card"><span class="trust-index">03</span><h3>Системное доверие</h3><p>Что происходит после передачи клиента команде: договорённости, скорость, контекст, ответственность и выполнение обещаний.</p></article>
         </div>
       </div>
     </section>
 
-    <section id="formats" class="section services" aria-labelledby="formats-title">
+
+<section id="books" class="section books" aria-labelledby="books-title">
       <div class="container">
-        <div class="section-head"><div><p class="kicker">Форматы работы</p><h2 id="formats-title" class="display section-title">От конкретного вопроса до подготовки команды</h2></div><p class="section-intro">На интро обсуждаем вашу задачу и выбираем подходящий формат. После разговора я предлагаю план работы и стоимость.</p></div>
-        <div class="services-grid"><article class="service-card"><span class="service-label">Конкретный вопрос</span><h3>Экспресс-разбор</h3><p>Разбираю вашу ситуацию и конкретный вопрос: личное общение, публичное представление или продажи. Помогаю определить фокус и следующие действия.</p><a class="button button-secondary" href="#contact">Договориться об интро</a></article><article class="service-card"><span class="service-label">Поддержка изменений</span><h3>Сопровождение по задаче</h3><p>Помогаю двигаться от задачи к действиям: разбираю с вами результаты, корректирую подход и поддерживаю внедрение в вашей работе.</p><a class="button button-secondary" href="#contact">Договориться об интро</a></article><article class="service-card"><span class="service-label">Основатель и команда</span><h3>Подготовка команды</h3><p>Разбираю задачи команды и помогаю подготовиться к выставкам, переговорам, продажам в соцсетях и публичным выступлениям. Работаю с представлением компании и продолжением общения после контакта.</p><a class="button button-secondary" href="#contact">Договориться об интро</a></article></div>
-        <p class="services-note">План работы и стоимость определяем после вводного разговора.</p>
+        <div class="book-intro">
+          <div class="book-intro-copy">
+            <p class="kicker">Книги</p><h2 id="books-title" class="display section-title">Книги и авторский подход</h2>
+            <p>В книгах систематизирую собственный опыт продаж и предпринимательства. Сейчас пишу «Продажи от сердца» и «Компанию доверия». Ранее издал «Энергию мерча».</p>
+          </div>
+          <div class="book-person"><img src="assets/anton-heart-v3.jpeg" width="934" height="1280" loading="lazy" alt="Антон Верт показывает жест сердца руками"></div>
+        </div>
+        <div class="books-grid">
+          <article class="book-card">
+            <div class="book-art book-art--mockup"><img src="assets/book-blue.jpeg" width="1120" height="1280" loading="lazy" alt="Обложка книги «Продажи от сердца»"></div>
+            <div class="book-card-copy"><span class="book-status">В работе</span><h3>«Продажи от сердца»</h3><p class="book-subtitle">Доверительные коммуникации в B2B-продажах</p><p class="book-description">О том, как первое лицо компании создаёт доверие лично и публично - от первого контакта до появления сделки.</p><a class="text-link" href="https://salesfromheart.com/" target="_blank" rel="noopener noreferrer">О книге и подходе</a></div>
+          </article>
+          <article class="book-card">
+            <div class="book-art book-art--trust"><img src="assets/book-company-trust-v4.jpeg" width="853" height="1280" loading="lazy" alt="Обложка книги «Компания доверия»"></div>
+            <div class="book-card-copy"><span class="book-status">В работе</span><h3>«Компания доверия»</h3><p class="book-subtitle">Доверительные коммуникации в бизнесе</p><p class="book-description">О том, как компания подтверждает обещания в работе и развивает отношения после сделки.</p></div>
+          </article>
+          <article class="book-card">
+            <div class="book-art book-art--energy"><img src="assets/energy-merch-cover.webp" width="360" height="360" loading="lazy" alt="Книга Антона Верта «Энергия мерча»"></div>
+            <div class="book-card-copy"><span class="book-status">Издана</span><h3>«Энергия мерча»</h3><p class="book-subtitle">Доверие к бренду через бизнес-подарки</p><p class="book-description">О том, как корпоративный мерч укрепляет отношения с сотрудниками и клиентами, повышает вовлечённость и создаёт чувство сопричастности бренду.</p><a class="text-link" href="https://energymerch.taplink.bio/" target="_blank" rel="noopener noreferrer">О книге</a></div>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section id="contact" class="section start" aria-labelledby="contact-title">
+
+<section id="formats" class="section services" aria-labelledby="formats-title">
       <div class="container">
-        <p class="kicker">Как начинаем</p><h2 id="contact-title" class="display section-title">Путь от знакомства к работе</h2>
-        <div class="process" aria-label="Этапы начала работы"><article class="process-step"><b>01</b><h3>Договариваемся об интро</h3><p>Вы коротко описываете задачу, мы выбираем время разговора.</p></article><article class="process-step"><b>02</b><h3>Знакомимся за 20 минут</h3><p>Обсуждаем вашу ситуацию, желаемый результат и подходящий формат.</p></article><article class="process-step"><b>03</b><h3>Согласовываем предложение</h3><p>Я предлагаю план, ожидаемый результат работы и стоимость.</p></article><article class="process-step"><b>04</b><h3>Оплата</h3><p>Вы оплачиваете согласованный формат.</p></article><article class="process-step"><b>05</b><h3>Начинаем работу</h3><p>Действуем по согласованному плану.</p></article></div>
-        <div class="contact-panel"><div><p class="kicker">Обращение</p><h2 class="display">Расскажите, какую задачу хотите решить</h2><p>Напишите пару слов о себе, бизнесе и результате, к которому хотите прийти. Договоримся о 20-минутном интро и обсудим, чем я могу помочь.</p></div><div class="contact-action"><strong>Написать Антону</strong><span>Коротко опишите себя, бизнес и желаемый результат.</span><a class="contact-email" href="mailto:a@vert.expert">a@vert.expert</a><div class="contact-buttons"><a class="button button-primary" href="https://t.me/vertanton" target="_blank" rel="noopener noreferrer">Написать в Telegram</a><a class="button button-secondary" href="mailto:a@vert.expert?subject=Интро:%20моя%20задача&amp;body=Здравствуйте,%20Антон!%0A%0AКоротко%20обо%20мне%20и%20бизнесе:%20%0A%0AЗадача%20и%20желаемый%20результат:%20">Написать письмо</a></div></div><div class="movement-photo"><img src="assets/anton-walk.jpeg" width="853" height="1280" loading="lazy" alt="Антон Верт идёт в полный рост"></div></div>
+        <div class="section-head">
+          <div><p class="kicker">Форматы работы</p><h2 id="formats-title" class="display section-title">От одного вопроса до регулярной работы</h2></div>
+          <p class="section-intro">От одного конкретного вопроса до регулярной работы с вами или командой. На коротком интро обсуждаем задачу, после чего я предлагаю подходящий формат, план и стоимость.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card"><span class="service-label">Конкретная задача</span><h3>Экспресс-разбор</h3><p>Для ситуации, где нужно быстро получить внешний взгляд и понять, что делать дальше. Разбираем одну задачу: личные продажи, подготовку к конференции или переговорам, публичность, позиционирование, привлечение клиента или передачу работы команде.</p><a class="button button-secondary" href="#contact">Обсудить задачу</a></article>
+          <article class="service-card"><span class="service-label">Несколько недель или месяцев</span><h3>Сопровождение</h3><p>Для основателя, которому нужен не разовый совет, а человек рядом. Регулярно разбираем реальные ситуации, смотрим, что получилось, корректируем подход и двигаемся дальше: продажи, переговоры, публичность, конференции, клиенты, команда.</p><a class="button button-secondary" href="#contact">Обсудить задачу</a></article>
+          <article class="service-card"><span class="service-label">Основатель и команда</span><h3>Работа с командой</h3><p>Для ситуации, где задача касается не только основателя. Разбираем подготовку команды к конференциям и переговорам, продолжение контакта после первой встречи и бесшовную передачу клиента от основателя команде без потери контекста, договорённостей и доверия.</p><a class="button button-secondary" href="#contact">Обсудить задачу</a></article>
+        </div>
       </div>
     </section>
+
+
+<section id="contact" class="section start" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact-panel">
+          <div class="contact-copy">
+            <p class="kicker">Обращение</p><h2 id="contact-title" class="display">Расскажите о вашей задаче</h2>
+            <p>Я посмотрю контекст и предложу, как можем двигаться дальше.</p>
+          </div>
+          <div class="contact-action">
+            <strong>Выберите удобный способ</strong>
+            <span>20 минут на знакомство или сообщение с коротким описанием задачи.</span>
+            <div class="contact-buttons">
+              <!-- Replace mailto with the real Calendly 20-minute event URL when Anton provides it. -->
+              <a class="button button-primary" id="intro-calendar" data-calendar-pending="true" href="mailto:a@vert.expert?subject=20-%D0%BC%D0%B8%D0%BD%D1%83%D1%82%D0%BD%D0%BE%D0%B5%20%D0%B8%D0%BD%D1%82%D1%80%D0%BE">Запросить 20-минутное интро</a>
+              <a class="button button-secondary" href="https://t.me/vertanton" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
+              <a class="button button-secondary" href="mailto:a@vert.expert?subject=%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D0%90%D0%BD%D1%82%D0%BE%D0%BD%D0%B0">Написать на email</a>
+            </div>
+            <p class="contact-availability">Запись в календаре подключается. Пока время интро можно согласовать по email.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <footer><div class="container footer-row"><div><a class="brand" href="#top">Антон Верт</a><div class="footer-meta">Консультант-практик по B2B-продажам и доверительным коммуникациям</div></div><div class="footer-links"><a href="https://t.me/vertanton" target="_blank" rel="noopener noreferrer">Telegram</a><a href="mailto:a@vert.expert">a@vert.expert</a><a href="https://vert.expert/" target="_blank" rel="noopener noreferrer">vert.expert</a><a href="https://www.youtube.com/@vertexpert" target="_blank" rel="noopener noreferrer">YouTube</a></div></div></footer>
+  <footer><div class="container footer-row"><div><a class="brand" href="#top">Антон Верт</a><div class="footer-meta">Предприниматель, консультант по B2B-продажам и доверительным коммуникациям</div></div><div class="footer-links"><a href="https://www.linkedin.com/in/vertanton/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://www.youtube.com/@vertexpert" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://vert.expert/" target="_blank" rel="noopener noreferrer">vert.expert</a></div></div></footer>
   <script>
     const mobileMenu = document.querySelector('.mobile-menu');
     mobileMenu.addEventListener('click', (event) => { if (event.target.closest('a')) mobileMenu.open = false; });
