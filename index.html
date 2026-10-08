@@ -316,6 +316,10 @@
       .contact-panel { padding: 25px 20px; }
       .contact-action { padding: 20px; }
     }
+
+    .brand-square { width: 58px; height: 58px; flex: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0; border: 1px solid #dbe3ee; border-radius: 3px; color: #192334; background: #fff; font-size: .89rem; font-weight: 800; line-height: 1.22; letter-spacing: -.04em; }
+    .brand-square span { display: block; }
+    @media (max-width: 760px) { .brand-square { width: 48px; height: 48px; font-size: .76rem; } }
   </style>
 </head>
 <body>
@@ -323,7 +327,7 @@
   <header class="site-header">
     <div class="container nav">
       <div class="nav-left">
-        <a class="brand" href="#top" aria-label="Антон Верт — в начало страницы">Антон Верт</a>
+        <a class="brand brand-square" href="#top" aria-label="Антон Верт - на главную"><span>Антон</span><span>Верт</span></a>
         <nav class="nav-links" aria-label="Основная навигация">
           <a href="#top">Главная</a><a href="#situations">Полезность</a><a href="#about">Опыт</a><a href="#approach">Подход</a><a href="#books">Книги</a><a href="#formats">Форматы</a><a href="#contact">Обращение</a>
         </nav>
