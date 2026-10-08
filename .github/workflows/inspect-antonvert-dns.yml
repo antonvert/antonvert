@@ -1,0 +1,53 @@
+name: Inspect antonvert.com DNS
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/inspect-antonvert-dns.yml"
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    name: Check Cloudflare zone and apex DNS (read-only)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - name: Diagnose custom domain binding and apex DNS
+        run: |
+          set -u
+          PAGE_URL="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/antonvert-live/domains/antonvert.com"
+          curl --silent --show-error --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$PAGE_URL" -o /tmp/pagedomain.json
+          jq '{success, status: .result.status, validation: .result.validation_data.status, verification: .result.verification_data.status, zone_tag: .result.zone_tag, errors}' /tmp/pagedomain.json
+          ZONE=$(jq -r '.result.zone_tag // empty' /tmp/pagedomain.json)
+          if [ -z "$ZONE" ]; then
+            echo "Missing Cloudflare zone tag on Pages domain. Checking zones endpoint."
+            status=$(curl --silent --show-error --output /tmp/zones.json --write-out '%{http_code}' \
+              --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              "https://api.cloudflare.com/client/v4/zones?name=antonvert.com")
+            echo "GET /zones HTTP $status"
+            jq '{success, zones: [.result[]? | {id,name,status}], errors}' /tmp/zones.json || true
+            ZONE=$(jq -r '.result[0].id // empty' /tmp/zones.json)
+          fi
+          if [ -n "$ZONE" ]; then
+            for typ in A AAAA CNAME; do
+              status=$(curl --silent --show-error --output /tmp/records.json --write-out '%{http_code}' \
+                --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+                "https://api.cloudflare.com/client/v4/zones/$ZONE/dns_records?name=antonvert.com&type=$typ")
+              echo "DNS Records type=$typ HTTP $status"
+              jq '{success, records: [.result[]? | {id,type,name,content,proxied,ttl}], errors}' /tmp/records.json || true
+            done
+          else
+            echo "Unable to read Cloudflare zone by this Pages-scoped API token."
+          fi
+          echo "Public DNS via 1.1.1.1:"
+          dig @1.1.1.1 antonvert.com A +noall +answer || true
+          dig @1.1.1.1 antonvert.com CNAME +noall +answer || true
+          dig @1.1.1.1 antonvert.com NS +noall +answer || true
+          echo "Production hostname response:"
+          curl -sS -L --max-time 15 -o /tmp/apex-response.html -w 'HTTPS_STATUS %{http_code} TLS_VERIFY %{ssl_verify_result} URL %{url_effective}\n' https://antonvert.com/ || true
+          grep -oE '<title>[^<]+' /tmp/apex-response.html | head -1 || true
