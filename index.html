@@ -265,6 +265,57 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { transition-duration: .01ms !important; }
     }
+
+    /* Anton's feedback: a framed, social-post-friendly first screen. */
+    .nav-links { gap: 15px; font-size: .81rem; }
+    .nav-left { gap: 26px; }
+    .hero { padding: 40px 0 72px; overflow: visible; }
+    .hero-grid { grid-template-columns: minmax(0, 1.08fr) minmax(350px, .92fr); gap: 0; align-items: stretch; padding: 16px; border: 1px solid #d8e2ed; border-radius: 30px; background: linear-gradient(140deg, #fff 0%, #fff 62%, #f2f6fb 100%); box-shadow: 0 24px 60px rgba(32, 57, 93, .07); }
+    .hero-copy { display: flex; flex-direction: column; justify-content: center; padding: 32px 30px; }
+    .hero-role { margin-bottom: 18px; font-size: .77rem; line-height: 1.5; }
+    .hero h1 { max-width: 670px; font-size: clamp(2.12rem, 3.45vw, 3.52rem); line-height: 1.12; }
+    .hero-lead { margin-top: 19px; font-size: 1.03rem; }
+    .hero-personal { margin-top: 22px; padding-left: 15px; font-size: .94rem; line-height: 1.6; }
+    .hero-audience { margin-top: 16px; font-size: .85rem; line-height: 1.52; }
+    .hero-actions { margin-top: 22px; }
+    .hero-photo { min-height: 620px; border-radius: 14px 14px 100px 14px; }
+    .hero-photo img { object-position: 50% 24%; }
+    .about-copy > p { line-height: 1.65; }
+    .book-art, .book-art--mockup { background: #e5e5e5; }
+    .book-art--trust img { padding: 10px; object-fit: contain; }
+    .book-art--energy img { padding: 0; object-fit: cover; }
+    .book-card { background: #f6f7f9; }
+    .contact-panel { grid-template-columns: minmax(0, 1fr) minmax(320px, .85fr); margin-top: 0; gap: 42px; padding: 44px; }
+    .contact-panel h2 { max-width: 680px; }
+    .contact-action { padding: 25px; }
+    .contact-availability { margin: 12px 0 0 !important; font-size: .76rem; }
+    .services-grid .service-card { min-height: 415px; }
+    @media (max-width: 1100px) {
+      .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(320px, .83fr); }
+      .hero-copy { padding: 20px 22px; }
+      .hero h1 { font-size: clamp(2.15rem, 4.1vw, 3rem); }
+      .contact-panel { grid-template-columns: 1fr .85fr; }
+    }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-copy { padding: 29px 27px 24px; }
+      .hero-photo { min-height: 550px; }
+      .contact-panel { grid-template-columns: 1fr; }
+      .services-grid .service-card { min-height: 0; }
+    }
+    @media (max-width: 760px) {
+      .hero { padding-top: 22px; }
+      .hero-grid { padding: 12px; border-radius: 22px; }
+      .hero-copy { padding: 21px 14px 25px; }
+      .hero-role { font-size: .73rem; }
+      .hero h1 { font-size: clamp(2rem, 8.4vw, 3.15rem); }
+      .hero-personal { margin-top: 18px; }
+      .hero-photo { min-height: 0; border-radius: 16px 16px 62px 16px; overflow: hidden; background: var(--blue-soft); }
+      .hero-photo img { border-radius: 16px 16px 62px 16px; }
+      .hero-quote { margin: 0 8px 8px; padding: 12px 4px 3px; }
+      .contact-panel { padding: 25px 20px; }
+      .contact-action { padding: 20px; }
+    }
   </style>
 </head>
 <body>
