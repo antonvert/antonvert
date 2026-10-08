@@ -10,6 +10,7 @@ async function run() {
   const cases = [
     { name: 'desktop-1440', width: 1440, height: 900 },
     { name: 'laptop-1024', width: 1024, height: 768 },
+    { name: 'tablet-768', width: 768, height: 900 },
     { name: 'mobile-390', width: 390, height: 844 },
     { name: 'mobile-360', width: 360, height: 800 }
   ];
@@ -28,7 +29,9 @@ async function run() {
           heroRect: { width: Math.round(hero.getBoundingClientRect().width), height: Math.round(hero.getBoundingClientRect().height) },
           books: document.querySelectorAll('.book-card').length,
           anchors: Array.from(document.querySelectorAll('a[href^="#"]')).filter(a => !document.getElementById(a.getAttribute('href').slice(1))).map(a => a.outerHTML),
-          noindex: !!document.querySelector('meta[name="robots"][content*="noindex"]')
+          noindex: !!document.querySelector('meta[name="robots"][content*="noindex"]'),
+          analyticsTagBeforeConsent: !!document.querySelector('script[src*="googletagmanager.com/gtag"]'),
+          consentVisible: !document.getElementById('analytics-consent').hidden
         };
       });
       assert.ok(state.title.includes('Антон Верт'));
@@ -36,6 +39,8 @@ async function run() {
       assert.deepEqual(state.anchors, [], 'Broken internal anchor links');
       assert.ok(state.horizontalOverflow <= 1, item.name + ' has horizontal overflow of ' + state.horizontalOverflow + 'px');
       assert.equal(state.noindex, true, 'Staging must stay noindex');
+      assert.equal(state.analyticsTagBeforeConsent, false, 'GA4 must not load before consent');
+      assert.equal(state.consentVisible, true, 'Analytics consent must be offered to a new visitor');
       await page.screenshot({ path: 'artifacts/qa/' + item.name + '-viewport.png', fullPage: false });
       await page.locator('.hero-grid').screenshot({ path: 'artifacts/qa/' + item.name + '-hero.png' });
       await page.locator('#books').scrollIntoViewIfNeeded();

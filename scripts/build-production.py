@@ -19,8 +19,12 @@ if source.count(old_robots) != 1:
     raise RuntimeError("Expected exactly one staging noindex meta tag; refusing production build")
 if '<link rel="canonical" href="https://antonvert.com/">' not in source:
     raise RuntimeError("Production canonical URL is missing")
-if source.count("G-LFD43SGSP2") != 2:
-    raise RuntimeError("GA4 ID is missing or duplicated")
+if source.count("G-LFD43SGSP2") != 1:
+    raise RuntimeError("GA4 ID must appear exactly once")
+if source.count('https://antonvert.com/assets/og-antonvert-1200x630.png') != 2:
+    raise RuntimeError("Open Graph and Twitter images are missing or duplicated")
+if "antonvert_analytics_consent_v1" not in source:
+    raise RuntimeError("Analytics consent gate is missing")
 if source.count('class="book-card"') != 3:
     raise RuntimeError("Book list changed unexpectedly")
 if "«Энергия мерча»" not in source:
@@ -55,7 +59,8 @@ ET.fromstring(sitemap)
 
 assert new_robots in production_html and old_robots not in production_html
 assert 'Disallow: /' in (ROOT / "robots.txt").read_text(encoding="utf-8")
-print("PASS production build: indexable, correct canonical, GA4 and books")
+assert (ROOT / "assets" / "og-antonvert-1200x630.png").exists()
+print("PASS production build: indexable, correct canonical, consent-gated GA4 and books")
 print("PASS separate staging: source robots.txt still blocks crawling")
-print("PASS generated robots.txt, sitemap.xml, favicon and assets")
+print("PASS generated robots.txt, sitemap.xml, social image, favicon and assets")
 print("Output: dist-production")

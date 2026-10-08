@@ -11,22 +11,23 @@
   <meta property="og:locale" content="ru_RU">
   <meta property="og:title" content="Антон Верт - продажи через доверие">
   <meta property="og:description" content="Помогаю основателям привлекать клиентов лично и публично и передавать отношения команде без потери доверия.">
-  <meta name="twitter:card" content="summary_large_image">
   <meta property="og:site_name" content="Антон Верт">
   <meta property="og:url" content="https://antonvert.com/">
+  <meta property="og:image" content="https://antonvert.com/assets/og-antonvert-1200x630.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Антон Верт - консультант по B2B-продажам и доверительным коммуникациям">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Антон Верт - продажи через доверие">
+  <meta name="twitter:description" content="Помогаю основателям привлекать клиентов лично и публично и передавать отношения команде без потери доверия.">
+  <meta name="twitter:image" content="https://antonvert.com/assets/og-antonvert-1200x630.png">
+  <meta name="twitter:image:alt" content="Антон Верт - консультант по B2B-продажам и доверительным коммуникациям">
   <link rel="canonical" href="https://antonvert.com/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Prata&display=swap" rel="stylesheet">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <!-- GA4 Measurement ID -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LFD43SGSP2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-LFD43SGSP2');
-  </script>
   <style>
     :root {
       --bg: #fafbfd;
@@ -182,6 +183,14 @@
     .footer-meta { margin-top: 4px; color: var(--muted); font-size: .78rem; }
     .footer-links { display: flex; flex-wrap: wrap; gap: 17px; color: var(--muted); font-size: .8rem; }
     .footer-links a:hover { color: var(--blue); }
+    .footer-consent { padding: 0; border: 0; color: inherit; background: transparent; font: inherit; cursor: pointer; }
+    .footer-consent:hover { color: var(--blue); }
+    .analytics-consent { position: fixed; z-index: 90; right: 22px; bottom: 22px; width: min(520px, calc(100% - 44px)); padding: 22px; border: 1px solid #cfdbea; border-radius: 18px; background: rgba(255, 255, 255, .98); box-shadow: 0 20px 60px rgba(25, 35, 52, .18); }
+    .analytics-consent[hidden] { display: none; }
+    .analytics-consent h2 { margin: 0; font-family: var(--serif); font-size: 1.35rem; font-weight: 400; }
+    .analytics-consent p { margin: 10px 0 0; color: var(--muted); font-size: .84rem; line-height: 1.55; }
+    .analytics-consent-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .analytics-consent .button { min-height: 44px; flex: 1 1 190px; padding: 10px 15px; font-size: .82rem; }
 
     @media (max-width: 1100px) {
       .nav-links { display: none; }
@@ -251,6 +260,8 @@
       .movement-photo img { transform: none; }
       .footer-row { display: block; }
       .footer-links { margin-top: 17px; }
+      .analytics-consent { right: 14px; bottom: 14px; width: calc(100% - 28px); padding: 18px; }
+      .analytics-consent-actions { display: grid; }
     }
     @media (max-width: 390px) {
       .brand { font-size: .91rem; }
@@ -336,7 +347,7 @@
           <nav aria-label="Навигация по разделам"><a href="#top">Главная</a><a href="#situations">Полезность</a><a href="#about">Опыт</a><a href="#approach">Подход</a><a href="#books">Книги</a><a href="#formats">Форматы</a><a href="#contact">Обращение</a></nav>
         </details>
       </div>
-      <a class="button button-primary header-cta" href="#contact"><span class="cta-full">Договориться об интро</span><span class="cta-short">Интро</span></a>
+      <a class="button button-primary header-cta" href="#contact" data-ga-event="header_intro"><span class="cta-full">Договориться об интро</span><span class="cta-short">Интро</span></a>
     </div>
   </header>
 
@@ -349,7 +360,7 @@
           <p class="hero-lead">И передавать отношения команде без потери доверия, контекста и качества коммуникации.</p>
           <p class="hero-personal">С 2007 года строю B2B-бизнесы и сам продолжаю проходить этот путь: привлекаю клиентов через встречи, конференции, networking, контент и публичность, а дальше передаю работу команде.</p>
           <p class="hero-audience">Мой фокус - основатели небольших международных B2B-компаний, где продажи заметно зависят от первого лица.</p>
-          <div class="hero-actions"><a class="button button-primary" href="#contact">Обсудить вашу задачу</a><a class="button button-secondary" href="#situations">Чем могу быть полезен</a></div>
+          <div class="hero-actions"><a class="button button-primary" href="#contact" data-ga-event="hero_contact">Обсудить вашу задачу</a><a class="button button-secondary" href="#situations" data-ga-event="hero_usefulness">Чем могу быть полезен</a></div>
         </div>
         <div class="hero-photo"><img src="assets/anton-hero-smile.jpeg" width="853" height="1280" alt="Антон Верт" fetchpriority="high"><blockquote class="hero-quote">B2B-продажи начинаются с доверия</blockquote></div>
       </div>
@@ -378,8 +389,8 @@
           <p>И продолжаю решать эти задачи сейчас.</p>
           <div class="about-stats"><div class="about-stat"><strong>19 лет</strong><span>предпринимательства</span></div><div class="about-stat"><strong>13</strong><span>бизнесов и проектов</span></div><div class="about-stat"><strong>3000+</strong><span>рабочих встреч</span></div></div>
           <div class="experience-list">
-            <div class="experience-item"><b>01</b><div><p><a class="project-title" href="https://vertcomm.group/" target="_blank" rel="noopener noreferrer">vertcomm</a> - корпоративные бизнес-подарки в странах ЕАЭС. Много лет сам был главным источником продаж: личные контакты, встречи, networking и публичность. Дальше клиентская работа переходила в аккаунтинг и команду.</p></div></div>
-            <div class="experience-item"><b>02</b><div><p><a class="project-title" href="https://swaggy.agency/" target="_blank" rel="noopener noreferrer">SWAGGY agency</a> - международное агентство мерча и рекламной продукции в 55+ странах. Сейчас выстраиваю следующий этап: публичное привлечение, bizdev-направление и передачу возможностей команде, чтобы продажи меньше зависели от моего личного участия.</p></div></div>
+            <div class="experience-item"><b>01</b><div><p><a class="project-title" href="https://vertcomm.group/" target="_blank" rel="noopener noreferrer" data-ga-event="project_vertcomm">vertcomm</a> - корпоративные бизнес-подарки в странах ЕАЭС. Много лет сам был главным источником продаж: личные контакты, встречи, networking и публичность. Дальше клиентская работа переходила в аккаунтинг и команду.</p></div></div>
+            <div class="experience-item"><b>02</b><div><p><a class="project-title" href="https://swaggy.agency/" target="_blank" rel="noopener noreferrer" data-ga-event="project_swaggy">SWAGGY agency</a> - международное агентство мерча и рекламной продукции в 55+ странах. Сейчас выстраиваю следующий этап: публичное привлечение, bizdev-направление и передачу возможностей команде, чтобы продажи меньше зависели от моего личного участия.</p></div></div>
           </div>
         </div>
       </div>
@@ -412,7 +423,7 @@
         <div class="books-grid">
           <article class="book-card">
             <div class="book-art book-art--mockup"><img src="assets/book-blue.jpeg" width="1120" height="1280" loading="lazy" alt="Обложка книги «Продажи от сердца»"></div>
-            <div class="book-card-copy"><span class="book-status">В работе</span><h3>«Продажи от сердца»</h3><p class="book-subtitle">Доверительные коммуникации в B2B-продажах</p><p class="book-description">О том, как первое лицо компании создаёт доверие лично и публично - от первого контакта до появления сделки.</p><a class="text-link" href="https://salesfromheart.com/" target="_blank" rel="noopener noreferrer">О книге и подходе</a></div>
+            <div class="book-card-copy"><span class="book-status">В работе</span><h3>«Продажи от сердца»</h3><p class="book-subtitle">Доверительные коммуникации в B2B-продажах</p><p class="book-description">О том, как первое лицо компании создаёт доверие лично и публично - от первого контакта до появления сделки.</p><a class="text-link" href="https://salesfromheart.com/" target="_blank" rel="noopener noreferrer" data-ga-event="book_sales_from_heart">О книге и подходе</a></div>
           </article>
           <article class="book-card">
             <div class="book-art book-art--trust"><img src="assets/book-company-trust-v4.jpeg" width="853" height="1280" loading="lazy" alt="Обложка книги «Компания доверия»"></div>
@@ -420,7 +431,7 @@
           </article>
           <article class="book-card">
             <div class="book-art book-art--energy"><img src="assets/energy-merch-cover.webp" width="360" height="360" loading="lazy" alt="Книга Антона Верта «Энергия мерча»"></div>
-            <div class="book-card-copy"><span class="book-status">Издана</span><h3>«Энергия мерча»</h3><p class="book-subtitle">Доверие к бренду через бизнес-подарки</p><p class="book-description">О том, как корпоративный мерч укрепляет отношения с сотрудниками и клиентами, повышает вовлечённость и создаёт чувство сопричастности бренду.</p><a class="text-link" href="https://energymerch.taplink.bio/" target="_blank" rel="noopener noreferrer">О книге</a></div>
+            <div class="book-card-copy"><span class="book-status">Издана</span><h3>«Энергия мерча»</h3><p class="book-subtitle">Доверие к бренду через бизнес-подарки</p><p class="book-description">О том, как корпоративный мерч укрепляет отношения с сотрудниками и клиентами, повышает вовлечённость и создаёт чувство сопричастности бренду.</p><a class="text-link" href="https://energymerch.taplink.bio/" target="_blank" rel="noopener noreferrer" data-ga-event="book_energy_merch">О книге</a></div>
           </article>
         </div>
       </div>
@@ -434,9 +445,9 @@
           <p class="section-intro">От одного конкретного вопроса до регулярной работы с вами или командой. На коротком интро обсуждаем задачу, после чего я предлагаю подходящий формат, план и стоимость.</p>
         </div>
         <div class="services-grid">
-          <article class="service-card"><span class="service-label">Конкретная задача</span><h3>Экспресс-разбор</h3><p>Для ситуации, где нужно быстро получить внешний взгляд и понять, что делать дальше. Разбираем одну задачу: личные продажи, подготовку к конференции или переговорам, публичность, позиционирование, привлечение клиента или передачу работы команде.</p><a class="button button-secondary" href="#contact">Обсудить задачу</a></article>
-          <article class="service-card"><span class="service-label">Несколько недель или месяцев</span><h3>Сопровождение</h3><p>Для основателя, которому нужен не разовый совет, а человек рядом. Регулярно разбираем реальные ситуации, смотрим, что получилось, корректируем подход и двигаемся дальше: продажи, переговоры, публичность, конференции, клиенты, команда.</p><a class="button button-secondary" href="#contact">Обсудить задачу</a></article>
-          <article class="service-card"><span class="service-label">Основатель и команда</span><h3>Работа с командой</h3><p>Для ситуации, где задача касается не только основателя. Разбираем подготовку команды к конференциям и переговорам, продолжение контакта после первой встречи и бесшовную передачу клиента от основателя команде без потери контекста, договорённостей и доверия.</p><a class="button button-secondary" href="#contact">Обсудить задачу</a></article>
+          <article class="service-card"><span class="service-label">Конкретная задача</span><h3>Экспресс-разбор</h3><p>Для ситуации, где нужно быстро получить внешний взгляд и понять, что делать дальше. Разбираем одну задачу: личные продажи, подготовку к конференции или переговорам, публичность, позиционирование, привлечение клиента или передачу работы команде.</p><a class="button button-secondary" href="#contact" data-ga-event="format_express">Обсудить задачу</a></article>
+          <article class="service-card"><span class="service-label">Несколько недель или месяцев</span><h3>Сопровождение</h3><p>Для основателя, которому нужен не разовый совет, а человек рядом. Регулярно разбираем реальные ситуации, смотрим, что получилось, корректируем подход и двигаемся дальше: продажи, переговоры, публичность, конференции, клиенты, команда.</p><a class="button button-secondary" href="#contact" data-ga-event="format_advisory">Обсудить задачу</a></article>
+          <article class="service-card"><span class="service-label">Основатель и команда</span><h3>Работа с командой</h3><p>Для ситуации, где задача касается не только основателя. Разбираем подготовку команды к конференциям и переговорам, продолжение контакта после первой встречи и бесшовную передачу клиента от основателя команде без потери контекста, договорённостей и доверия.</p><a class="button button-secondary" href="#contact" data-ga-event="format_team">Обсудить задачу</a></article>
         </div>
       </div>
     </section>
@@ -454,9 +465,9 @@
             <span>20 минут на знакомство или сообщение с коротким описанием задачи.</span>
             <div class="contact-buttons">
               <!-- Replace mailto with the real Calendly 20-minute event URL when Anton provides it. -->
-              <a class="button button-primary" id="intro-calendar" data-calendar-pending="true" href="mailto:a@vert.expert?subject=20-%D0%BC%D0%B8%D0%BD%D1%83%D1%82%D0%BD%D0%BE%D0%B5%20%D0%B8%D0%BD%D1%82%D1%80%D0%BE">Запросить 20-минутное интро</a>
-              <a class="button button-secondary" href="https://t.me/vertanton" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
-              <a class="button button-secondary" href="mailto:a@vert.expert?subject=%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D0%90%D0%BD%D1%82%D0%BE%D0%BD%D0%B0">Написать на email</a>
+              <a class="button button-primary" id="intro-calendar" data-calendar-pending="true" data-ga-event="contact_intro_email" href="mailto:a@vert.expert?subject=20-%D0%BC%D0%B8%D0%BD%D1%83%D1%82%D0%BD%D0%BE%D0%B5%20%D0%B8%D0%BD%D1%82%D1%80%D0%BE">Запросить 20-минутное интро</a>
+              <a class="button button-secondary" href="https://t.me/vertanton" target="_blank" rel="noopener noreferrer" data-ga-event="contact_telegram">Написать в Telegram</a>
+              <a class="button button-secondary" href="mailto:a@vert.expert?subject=%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D0%90%D0%BD%D1%82%D0%BE%D0%BD%D0%B0" data-ga-event="contact_email">Написать на email</a>
             </div>
             <p class="contact-availability">Запись в календаре подключается. Пока время интро можно согласовать по email.</p>
           </div>
@@ -466,13 +477,94 @@
 
   </main>
 
-  <footer><div class="container footer-row"><div><a class="brand" href="#top">Антон Верт</a><div class="footer-meta">Предприниматель, консультант по B2B-продажам и доверительным коммуникациям</div></div><div class="footer-links"><a href="https://www.linkedin.com/in/vertanton/" target="_blank" rel="noopener noreferrer">LinkedIn</a><a href="https://www.youtube.com/@vertexpert" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://vert.expert/" target="_blank" rel="noopener noreferrer">vert.expert</a></div></div></footer>
+  <footer><div class="container footer-row"><div><a class="brand" href="#top">Антон Верт</a><div class="footer-meta">Предприниматель, консультант по B2B-продажам и доверительным коммуникациям</div></div><div class="footer-links"><a href="https://www.linkedin.com/in/vertanton/" target="_blank" rel="noopener noreferrer" data-ga-event="social_linkedin">LinkedIn</a><a href="https://www.youtube.com/@vertexpert" target="_blank" rel="noopener noreferrer" data-ga-event="social_youtube">YouTube</a><a href="https://vert.expert/" target="_blank" rel="noopener noreferrer" data-ga-event="project_vert_expert">vert.expert</a><button class="footer-consent" type="button" id="analytics-settings">Настройки аналитики</button></div></div></footer>
+  <aside class="analytics-consent" id="analytics-consent" aria-labelledby="analytics-consent-title" aria-describedby="analytics-consent-text" hidden>
+    <h2 id="analytics-consent-title">Аналитика сайта</h2>
+    <p id="analytics-consent-text">Можно включить Google Analytics, чтобы понять, какие разделы и способы связи полезны посетителям. До согласия Google Analytics не загружается и аналитические данные не отправляются; локально сохраняется только ваш выбор.</p>
+    <div class="analytics-consent-actions">
+      <button class="button button-primary" type="button" data-consent-choice="granted">Разрешить аналитику</button>
+      <button class="button button-secondary" type="button" data-consent-choice="denied">Только необходимые</button>
+    </div>
+  </aside>
   <script>
     const mobileMenu = document.querySelector('.mobile-menu');
     mobileMenu.addEventListener('click', (event) => { if (event.target.closest('a')) mobileMenu.open = false; });
     document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && mobileMenu.open) { mobileMenu.open = false; mobileMenu.querySelector('summary').focus(); } });
     const desktopNavigation = window.matchMedia('(min-width: 1101px)');
     desktopNavigation.addEventListener('change', (event) => { if (event.matches) mobileMenu.open = false; });
+
+    const GA_ID = 'G-LFD43SGSP2';
+    const CONSENT_KEY = 'antonvert_analytics_consent_v1';
+    const consentPanel = document.getElementById('analytics-consent');
+    let analyticsLoaded = false;
+    let analyticsGranted = false;
+
+    function readConsent() {
+      try { return window.localStorage.getItem(CONSENT_KEY); } catch (error) { return null; }
+    }
+
+    function saveConsent(value) {
+      try { window.localStorage.setItem(CONSENT_KEY, value); } catch (error) { /* Choice lasts for this page only. */ }
+    }
+
+    function loadAnalytics() {
+      if (!analyticsLoaded) {
+        analyticsLoaded = true;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        window.gtag('consent', 'default', {
+          analytics_storage: 'denied',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        });
+      }
+      analyticsGranted = true;
+      window.gtag('consent', 'update', { analytics_storage: 'granted' });
+      if (document.querySelector('script[data-ga4]')) return;
+      window.gtag('js', new Date());
+      window.gtag('config', GA_ID, { anonymize_ip: true });
+      const script = document.createElement('script');
+      script.async = true;
+      script.dataset.ga4 = GA_ID;
+      script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA_ID);
+      document.head.appendChild(script);
+    }
+
+    function disableAnalytics() {
+      analyticsGranted = false;
+      if (analyticsLoaded && typeof window.gtag === 'function') {
+        window.gtag('consent', 'update', { analytics_storage: 'denied' });
+      }
+    }
+
+    function applyConsent(value) {
+      saveConsent(value);
+      consentPanel.hidden = true;
+      if (value === 'granted') loadAnalytics();
+      else disableAnalytics();
+    }
+
+    document.querySelectorAll('[data-consent-choice]').forEach((button) => {
+      button.addEventListener('click', () => applyConsent(button.dataset.consentChoice));
+    });
+    document.getElementById('analytics-settings').addEventListener('click', () => {
+      consentPanel.hidden = false;
+      consentPanel.querySelector('[data-consent-choice="granted"]').focus();
+    });
+    document.addEventListener('click', (event) => {
+      const link = event.target.closest('[data-ga-event]');
+      if (!link || !analyticsGranted || typeof window.gtag !== 'function') return;
+      window.gtag('event', 'select_content', {
+        content_type: 'site_action',
+        content_id: link.dataset.gaEvent,
+        link_url: link.href
+      });
+    });
+
+    const storedConsent = readConsent();
+    if (storedConsent === 'granted') loadAnalytics();
+    else if (storedConsent !== 'denied') consentPanel.hidden = false;
   </script>
 </body>
 </html>
