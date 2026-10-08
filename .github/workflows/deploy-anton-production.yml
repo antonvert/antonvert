@@ -1,0 +1,148 @@
+name: Publish antonvert.com
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "index.html"
+      - "favicon.svg"
+      - "robots.txt"
+      - "_headers"
+      - "assets/**"
+      - "scripts/build-production.py"
+      - ".github/workflows/deploy-anton-production.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: antonvert-production
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Build, deploy and attach antonvert.com
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    env:
+      PAGES_PROJECT: antonvert-live
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare production bundle (staging remains noindex)
+        run: |
+          python3 scripts/build-production.py
+          test -f dist-production/index.html
+          test -f dist-production/sitemap.xml
+          test -f dist-production/robots.txt
+          test -f dist-production/favicon.svg
+
+      - name: Ensure dedicated Pages production project
+        run: |
+          set -euo pipefail
+          API="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects"
+          status=$(curl --silent --show-error --output /tmp/cf-project.json --write-out '%{http_code}' \
+            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "$API/$PAGES_PROJECT")
+          case "$status" in
+            200)
+              jq --arg n "$PAGES_PROJECT" -e '.success == true and .result.name == $n' /tmp/cf-project.json > /dev/null
+              echo "Pages project exists: $PAGES_PROJECT"
+              ;;
+            404)
+              echo "Creating dedicated Pages project: $PAGES_PROJECT"
+              curl --silent --show-error --output /tmp/cf-created.json \
+                --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+                --header 'Content-Type: application/json' \
+                --data '{"name":"antonvert-live","production_branch":"main"}' \
+                "$API"
+              jq -e '.success == true and .result.name == "antonvert-live"' /tmp/cf-created.json >/dev/null || {
+                jq '{success,errors}' /tmp/cf-created.json
+                exit 1
+              }
+              echo "Pages project created: $PAGES_PROJECT"
+              ;;
+            *)
+              echo "Unable to inspect Cloudflare Pages project: HTTP $status"
+              jq '{success,errors}' /tmp/cf-project.json || true
+              exit 1
+              ;;
+          esac
+
+      - name: Publish indexable site to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist-production --project-name=antonvert-live --branch=main --commit-hash=${{ github.sha }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Attach custom domain antonvert.com
+        run: |
+          set -euo pipefail
+          API="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PAGES_PROJECT/domains"
+          status=$(curl --silent --show-error --output /tmp/cf-domain.json --write-out '%{http_code}' \
+            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$API/antonvert.com")
+          if [ "$status" = 200 ]; then
+            jq -e '.success == true and .result.name == "antonvert.com"' /tmp/cf-domain.json >/dev/null
+            echo "Custom domain already attached to $PAGES_PROJECT"
+          elif [ "$status" = 404 ]; then
+            echo "Attaching antonvert.com as Cloudflare Pages custom domain..."
+            curl --silent --show-error --output /tmp/cf-domain-created.json \
+              --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+              --header 'Content-Type: application/json' \
+              --data '{"name":"antonvert.com"}' \
+              "$API"
+            jq -e '.success == true and .result.name == "antonvert.com"' /tmp/cf-domain-created.json >/dev/null || {
+              echo "Cloudflare could not attach the domain; inspect the zone and nameservers."
+              jq '{success,errors}' /tmp/cf-domain-created.json || true
+              exit 1
+            }
+            echo "Custom domain attachment requested."
+          else
+            echo "Cloudflare custom domain lookup returned HTTP $status"
+            jq '{success,errors}' /tmp/cf-domain.json || true
+            exit 1
+          fi
+
+          curl --silent --show-error \
+            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$API/antonvert.com" \
+            | jq '{success, domain: .result.name, status: .result.status, validation: .result.validation_data.status, verification: .result.verification_data.status, errors}'
+          echo "Public nameservers:"
+          dig +short NS antonvert.com || true
+          echo "Current A records:"
+          dig +short A antonvert.com || true
+
+      - name: Smoke-test production Pages bundle
+        run: |
+          set -euo pipefail
+          URL="https://antonvert-live.pages.dev"
+          for attempt in 1 2 3 4 5 6; do
+            if curl -fsSL --max-time 15 "$URL/" -o /tmp/live-index.html; then
+              break
+            fi
+            sleep 5
+          done
+          grep -Fq 'name="robots" content="index,follow,max-image-preview:large"' /tmp/live-index.html
+          grep -Fq 'href="https://antonvert.com/"' /tmp/live-index.html
+          grep -Fq 'G-LFD43SGSP2' /tmp/live-index.html
+          curl --fail --silent --show-error --location "$URL/robots.txt" | grep -F 'Allow: /'
+          curl --fail --silent --show-error --location "$URL/sitemap.xml" | grep -F 'https://antonvert.com/'
+          curl --fail --silent --show-error --location "$URL/favicon.svg" | grep -F 'Антон'
+          echo "PASS production HTML, robots, canonical, GA4, sitemap and favicon"
+
+      - name: Verify live custom domain if DNS is ready
+        run: |
+          set -euo pipefail
+          if curl -fLsS --max-time 20 https://antonvert.com/ -o /tmp/apex.html; then
+            grep -Fq 'G-LFD43SGSP2' /tmp/apex.html
+            grep -Fq 'name="robots" content="index,follow,max-image-preview:large"' /tmp/apex.html
+            echo "PASS https://antonvert.com/ serving latest production content"
+          else
+            echo "::warning::The Pages project is deployed but antonvert.com is not serving yet. DNS/Cloudflare validation or SSL certificate issuance may still be pending."
+          fi
