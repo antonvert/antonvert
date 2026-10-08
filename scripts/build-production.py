@@ -34,7 +34,7 @@ if OUT.exists():
     shutil.rmtree(OUT)
 OUT.mkdir(parents=True)
 shutil.copytree(ROOT / "assets", OUT / "assets")
-for name in ("favicon.svg", "_headers"):
+for name in ("favicon.svg", "_headers", "404.html"):
     shutil.copy2(ROOT / name, OUT / name)
 
 production_html = source.replace(old_robots, new_robots)
@@ -60,7 +60,8 @@ ET.fromstring(sitemap)
 assert new_robots in production_html and old_robots not in production_html
 assert 'Disallow: /' in (ROOT / "robots.txt").read_text(encoding="utf-8")
 assert (ROOT / "assets" / "og-antonvert-1200x630.png").exists()
+assert 'name="robots" content="noindex,nofollow"' in (OUT / "404.html").read_text(encoding="utf-8")
 print("PASS production build: indexable, correct canonical, consent-gated GA4 and books")
 print("PASS separate staging: source robots.txt still blocks crawling")
-print("PASS generated robots.txt, sitemap.xml, social image, favicon and assets")
+print("PASS generated robots.txt, sitemap.xml, 404 page, social image, favicon and assets")
 print("Output: dist-production")

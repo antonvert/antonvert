@@ -29,6 +29,7 @@
 - [x] Hero, book covers and neutral image backgrounds were visually reviewed on production.
 - [x] Contact CTAs, Telegram, email, LinkedIn, YouTube, SWAGGY, vertcomm and book links were checked.
 - [x] Browser console has no errors on the production domain.
+- [x] Unknown URLs return a branded, non-indexable page with HTTP status `404`.
 - [x] Favicon, canonical URL, Open Graph and Twitter metadata are deployed.
 - [x] Social image `assets/og-antonvert-1200x630.png` is deployed at exactly 1200 x 630 px.
 
