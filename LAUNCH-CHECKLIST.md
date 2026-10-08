@@ -61,3 +61,5 @@
 - Production fallback: <https://antonvert-live.pages.dev/>
 - Staging: <https://antonvert-preview.pages.dev/>
 - Repository: <https://github.com/kirillgoncharik-commits/antonvert>
+- Desktop first screen: [`artifacts/launch/antonvert-production-desktop-1440.png`](artifacts/launch/antonvert-production-desktop-1440.png)
+- Mobile first screen: [`artifacts/launch/antonvert-production-mobile-390.png`](artifacts/launch/antonvert-production-mobile-390.png)
