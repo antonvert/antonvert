@@ -137,12 +137,13 @@
     .book-intro-copy p:last-child { max-width: 760px; margin: 21px 0 0; color: var(--muted); }
     .books-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
     .book-card { display: flex; min-width: 0; flex-direction: column; padding: 22px; border: 1px solid var(--line); border-radius: 22px; background: var(--blue-pale); }
-    .book-art { position: relative; flex: none; height: 300px; overflow: hidden; border-radius: 15px; background: #fff; }
-    .book-art img { position: absolute; inset: 0; width: 100%; height: 100%; padding: 12px; object-fit: contain; }
-    /* Crop only the mockup's grey margins; keep the complete book and shadow visible. */
-    .book-art--mockup { background: #d9d9d9; }
-    .book-art--mockup img { transform: scale(1.95); }
-    .book-art--merch img { transform: scale(1.4); }
+    .book-art { position: relative; display: grid; flex: none; height: 320px; place-items: center; overflow: hidden; padding: 10px; border-radius: 15px; background: #e5e5e5; }
+    .book-art img { position: absolute; top: 50%; left: 50%; width: auto; height: calc(100% - 20px); max-width: none; padding: 0; object-fit: contain; object-position: center; transform: translate(-50%, -50%); }
+    /* Trim only the source mockup's empty canvas; the whole book and its shadow remain visible. */
+    .book-art--mockup img { width: 100%; height: 100%; transform: translate(-50%, -50%) scale(2.03); }
+    .book-art--trust img { box-shadow: 0 9px 20px rgba(25, 35, 52, .1); }
+    /* The source is square: hide only the blue photo field around the physical book. */
+    .book-art--energy img { height: 100%; aspect-ratio: 1; clip-path: inset(4% 16.8% 3.2%); }
     .book-card-copy { display: flex; flex: 1; flex-direction: column; padding: 23px 4px 3px; }
     .book-status { color: var(--blue); font-size: .73rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; }
     .book-card h3 { margin: 15px 0 9px; font-family: var(--serif); font-size: clamp(1.5rem, 1.9vw, 1.95rem); font-weight: 400; line-height: 1.2; }
@@ -270,7 +271,7 @@
       .hero h1 { font-size: 2.08rem; }
       .about-photo { min-height: 500px; }
       .book-card { padding: 18px; }
-      .book-art { height: 285px; }
+      .book-art { height: 300px; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -292,10 +293,6 @@
     .hero-photo { min-height: 620px; border-radius: 14px 14px 100px 14px; }
     .hero-photo img { object-position: 50% 24%; }
     .about-copy > p { line-height: 1.65; }
-    .book-art, .book-art--mockup { background: #e5e5e5; }
-    .book-art--trust img { padding: 10px; object-fit: contain; }
-    .book-art--energy { display: flex; align-items: center; justify-content: center; padding: 10px; background: #e5e5e5; }
-    .book-art--energy img { position: relative; inset: auto; width: auto; height: 100%; aspect-ratio: .68; padding: 0; object-fit: cover; object-position: center; transform: scale(1.09); border-radius: 2px; box-shadow: 0 10px 22px rgba(25, 35, 52, .16); }
     .book-card { background: #f6f7f9; }
     .contact-panel { grid-template-columns: minmax(0, 1fr) minmax(320px, .85fr); margin-top: 0; gap: 42px; padding: 44px; }
     .contact-panel h2 { max-width: 680px; }
