@@ -41,11 +41,7 @@ async function run() {
       await page.locator('#books').scrollIntoViewIfNeeded();
       const bookImage = page.locator('img[src="assets/energy-merch-cover.webp"]');
       await bookImage.scrollIntoViewIfNeeded();
-      await bookImage.evaluate(img => new Promise((resolve, reject) => {
-        if (img.complete && img.naturalWidth > 0) return resolve();
-        img.addEventListener('load', resolve, { once: true });
-        img.addEventListener('error', reject, { once: true });
-      }));
+      await bookImage.evaluate(img => img.decode());
       assert.equal(await bookImage.evaluate(img => img.naturalWidth), 360);
       if (item.name === 'desktop-1440') await page.locator('#books .books-grid').screenshot({ path: 'artifacts/qa/books-desktop.png' });
       console.log(JSON.stringify({ viewport: item.name, status: 'PASS', ...state }));
