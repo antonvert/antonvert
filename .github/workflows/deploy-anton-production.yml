@@ -136,13 +136,30 @@ jobs:
           curl --fail --silent --show-error --location "$URL/favicon.svg" | grep -F 'Антон'
           echo "PASS production HTML, robots, canonical, GA4, sitemap and favicon"
 
-      - name: Verify live custom domain if DNS is ready
+      - name: Verify live custom domain (wait for DNS / SSL provisioning)
         run: |
-          set -euo pipefail
-          if curl -fLsS --max-time 20 https://antonvert.com/ -o /tmp/apex.html; then
-            grep -Fq 'G-LFD43SGSP2' /tmp/apex.html
-            grep -Fq 'name="robots" content="index,follow,max-image-preview:large"' /tmp/apex.html
-            echo "PASS https://antonvert.com/ serving latest production content"
-          else
-            echo "::warning::The Pages project is deployed but antonvert.com is not serving yet. DNS/Cloudflare validation or SSL certificate issuance may still be pending."
+          set -u
+          READY=0
+          for attempt in 1 2 3 4 5 6 7 8 9 10; do
+            status=$(curl --silent --show-error --location --max-time 20 \
+              --output /tmp/apex.html --dump-header /tmp/apex.headers --write-out '%{http_code}' \
+              https://antonvert.com/ || true)
+            if [ "$status" = "200" ] && \
+               grep -Fq 'G-LFD43SGSP2' /tmp/apex.html && \
+               grep -Fq 'name="robots" content="index,follow,max-image-preview:large"' /tmp/apex.html; then
+              READY=1
+              echo "PASS https://antonvert.com/ - updated HTML, GA4 and indexable page"
+              break
+            fi
+            title=$(grep -oE '<title>[^<]+' /tmp/apex.html 2>/dev/null | head -1 || true)
+            echo "Waiting for domain activation ($attempt/10): HTTP $status, $title"
+            sleep 10
+          done
+          echo "Cloudflare Pages domain status:"
+          curl --silent --show-error \
+            --header "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/pages/projects/$PAGES_PROJECT/domains/antonvert.com" \
+            | jq '{success, domain: .result.name, status: .result.status, validation: .result.validation_data.status, verification: .result.verification_data.status, errors}'
+          if [ "$READY" = 0 ]; then
+            echo "::warning::Production Pages is deployed and verified, but antonvert.com still does not serve the new site. Check Pages custom-domain validation, DNS and certificate."
           fi
