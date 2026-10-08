@@ -10,6 +10,7 @@ on:
       - "robots.txt"
       - "_headers"
       - "assets/**"
+      - "scripts/visual-qa.cjs"
       - ".github/workflows/deploy-anton-preview.yml"
   pull_request:
     branches:
@@ -20,6 +21,7 @@ on:
       - "robots.txt"
       - "_headers"
       - "assets/**"
+      - "scripts/visual-qa.cjs"
       - ".github/workflows/deploy-anton-preview.yml"
   workflow_dispatch:
 
@@ -56,3 +58,22 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=antonvert-preview --branch=${{ github.event_name == 'pull_request' && format('preview-{0}', github.event.pull_request.number) || 'main' }} --commit-hash=${{ github.sha }}
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Chromium for browser QA
+        if: github.event_name == 'pull_request'
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+
+      - name: Validate responsive layout and capture first screen
+        if: github.event_name == 'pull_request'
+        run: |
+          node scripts/visual-qa.cjs "https://preview-${{ github.event.pull_request.number }}.antonvert-preview.pages.dev"
+
+      - name: Upload preview screenshots
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: antonvert-visual-qa-${{ github.event.pull_request.number }}
+          path: artifacts/qa/*.png
+          if-no-files-found: warn
+
