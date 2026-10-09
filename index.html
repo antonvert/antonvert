@@ -173,7 +173,14 @@
     .contact-action { padding: 24px; border-radius: 18px; background: #fff; box-shadow: 0 12px 30px rgba(33, 55, 91, .07); }
     .contact-action > strong { display: block; font-family: var(--serif); font-size: 1.4rem; font-weight: 400; }
     .contact-action span { display: block; margin-top: 8px; color: var(--muted); font-size: .84rem; }
-    .contact-email { display: block; margin-top: 10px; color: var(--blue-dark); font-size: .84rem; font-weight: 750; }
+    .contact-email-card { min-width: 0; padding: 13px 14px; border: 1px solid var(--line); border-radius: 13px; background: var(--blue-pale); }
+    .contact-action .contact-email-label { margin: 0; color: var(--muted); font-size: .71rem; font-weight: 700; }
+    .contact-email-row { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-top: 7px; }
+    .contact-action .contact-email-address { flex: 1 1 105px; min-width: 0; margin: 0; color: var(--ink); font-size: .91rem; font-weight: 750; line-height: 1.45; overflow-wrap: anywhere; user-select: text; -webkit-user-select: text; }
+    .contact-email-copy { flex: none; min-height: 38px; padding: 8px 11px; border: 1px solid #b4c7e0; border-radius: 9px; color: var(--blue-dark); background: #fff; font: 700 .73rem/1.25 var(--sans); cursor: pointer; transition: background .15s ease, border-color .15s ease; }
+    .contact-email-copy:hover { border-color: var(--blue); background: #eef3fa; }
+    .contact-email-copy:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .contact-action .contact-email-status { margin: 8px 0 0; color: var(--muted); font-size: .72rem; line-height: 1.4; }
     .contact-buttons { display: grid; gap: 10px; }
     .contact-action .button { width: 100%; margin-top: 0; }
     .contact-action > .button { margin-top: 18px; }
@@ -457,7 +464,14 @@
           <div class="contact-action">
             <div class="contact-buttons">
               <a class="button button-secondary" href="https://t.me/vertanton" target="_blank" rel="noopener noreferrer" data-ga-event="contact_telegram">Написать в Telegram</a>
-              <a class="button button-secondary" href="mailto:a@vert.expert?subject=%D0%97%D0%B0%D0%B4%D0%B0%D1%87%D0%B0%20%D0%B4%D0%BB%D1%8F%20%D0%90%D0%BD%D1%82%D0%BE%D0%BD%D0%B0" data-ga-event="contact_email">Написать на email</a>
+              <div class="contact-email-card" aria-label="Электронная почта">
+                <span class="contact-email-label">Email</span>
+                <div class="contact-email-row">
+                  <span class="contact-email-address" id="contact-email-address">a@vert.expert</span>
+                  <button class="contact-email-copy" id="contact-email-copy" type="button" aria-label="Скопировать адрес a@vert.expert">Копировать</button>
+                </div>
+                <span class="contact-email-status" id="contact-email-status" role="status" aria-live="polite">Адрес можно выделить вручную</span>
+              </div>
             </div>
             <p class="contact-availability">Или выберите время для <strong>20-минутного интро</strong>, чтобы познакомиться и коротко обсудить задачу.</p>
             <a class="button button-primary" id="intro-calendar" data-ga-event="contact_intro_calendly" href="https://calendly.com/vert-anton/30min" target="_blank" rel="noopener noreferrer">Записаться на интро</a>
@@ -544,10 +558,56 @@
       consentPanel.hidden = false;
       consentPanel.querySelector('[data-consent-choice="granted"]').focus();
     });
+    // Copying an email address does not depend on a configured mail application.
+    // Keep the address selectable if clipboard access is restricted by the browser.
+    const emailCopyButton = document.getElementById('contact-email-copy');
+    const emailAddressElement = document.getElementById('contact-email-address');
+    const emailCopyStatus = document.getElementById('contact-email-status');
+
+    async function copyContactEmail(address) {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        try {
+          await navigator.clipboard.writeText(address);
+          return true;
+        } catch (error) { /* Continue with the legacy clipboard fallback. */ }
+      }
+      const input = document.createElement('textarea');
+      input.value = address;
+      input.setAttribute('readonly', '');
+      input.style.position = 'fixed';
+      input.style.left = '-9999px';
+      document.body.appendChild(input);
+      input.select();
+      let copied = false;
+      try { copied = document.execCommand('copy'); } catch (error) { /* Browser may disallow clipboard writes. */ }
+      input.remove();
+      return copied;
+    }
+
+    emailCopyButton.addEventListener('click', async () => {
+      const copied = await copyContactEmail(emailAddressElement.textContent.trim());
+      emailCopyStatus.textContent = copied
+        ? 'Адрес скопирован!'
+        : 'Автоматическое копирование недоступно. Выделите адрес вручную.';
+      if (!copied) {
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(emailAddressElement);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+      if (copied && analyticsGranted && typeof window.gtag === 'function') {
+        window.gtag('event', 'select_content', {
+          content_type: 'site_action',
+          content_id: 'contact_email_copy'
+        });
+        window.gtag('event', 'advisory_request', { contact_method: 'email' });
+      }
+    });
+
     const advisoryMethods = {
       contact_intro_calendly: 'calendly',
-      contact_telegram: 'telegram',
-      contact_email: 'email'
+      contact_telegram: 'telegram'
     };
     document.addEventListener('click', (event) => {
       const link = event.target.closest('[data-ga-event]');
