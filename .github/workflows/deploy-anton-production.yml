@@ -12,6 +12,7 @@ on:
       - "_headers"
       - "assets/**"
       - "scripts/build-production.py"
+      - "scripts/build-social-preview.py"
       - ".github/workflows/deploy-anton-production.yml"
   workflow_dispatch:
 
@@ -35,6 +36,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install preview image dependency
+        run: python3 -m pip install --disable-pip-version-check "Pillow==12.0.0"
+
       - name: Prepare production bundle (staging remains noindex)
         run: |
           python3 scripts/build-production.py
@@ -42,6 +51,7 @@ jobs:
           test -f dist-production/sitemap.xml
           test -f dist-production/robots.txt
           test -f dist-production/favicon.svg
+          test -s dist-production/assets/og-antonvert-20261009.png
           test -f dist-production/404.html
 
       - name: Ensure dedicated Pages production project
@@ -136,6 +146,10 @@ jobs:
           curl --fail --silent --show-error --location "$URL/robots.txt" | grep -F 'Allow: /'
           curl --fail --silent --show-error --location "$URL/sitemap.xml" | grep -F 'https://antonvert.com/'
           curl --fail --silent --show-error --location "$URL/favicon.svg" | grep -F 'Антон'
+          grep -Fq 'class="hero-lead">И передавать' /tmp/live-index.html
+          grep -Fq 'og-antonvert-20261009.png' /tmp/live-index.html
+          curl --fail --silent --show-error --location "$URL/assets/og-antonvert-20261009.png" -o /tmp/antonvert-social-preview.png
+          test "$(wc -c < /tmp/antonvert-social-preview.png)" -gt 20000
           test "$(curl --silent --show-error --output /tmp/not-found.html --write-out '%{http_code}' "$URL/this-page-does-not-exist")" = 404
           grep -Fq 'Такой страницы нет' /tmp/not-found.html
           echo "PASS production HTML, robots, canonical, GA4, sitemap and favicon"

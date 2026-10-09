@@ -12,6 +12,7 @@ on:
       - "_headers"
       - "assets/**"
       - "scripts/visual-qa.cjs"
+      - "scripts/build-social-preview.py"
       - ".github/workflows/deploy-anton-preview.yml"
   pull_request:
     branches:
@@ -24,6 +25,7 @@ on:
       - "_headers"
       - "assets/**"
       - "scripts/visual-qa.cjs"
+      - "scripts/build-social-preview.py"
       - ".github/workflows/deploy-anton-preview.yml"
   workflow_dispatch:
 
@@ -43,6 +45,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install preview image dependency
+        run: python3 -m pip install --disable-pip-version-check "Pillow==12.0.0"
+
       - name: Prepare static site
         run: |
           rm -rf dist
@@ -53,6 +63,8 @@ jobs:
           cp robots.txt dist/
           cp _headers dist/
           cp -R assets dist/assets
+          python3 scripts/build-social-preview.py dist/assets/og-antonvert-20261009.png
+          test -s dist/assets/og-antonvert-20261009.png
 
       - name: Deploy
         uses: cloudflare/wrangler-action@v4
