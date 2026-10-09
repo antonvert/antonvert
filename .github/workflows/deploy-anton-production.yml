@@ -146,7 +146,7 @@ jobs:
           curl --fail --silent --show-error --location "$URL/robots.txt" | grep -F 'Allow: /'
           curl --fail --silent --show-error --location "$URL/sitemap.xml" | grep -F 'https://antonvert.com/'
           curl --fail --silent --show-error --location "$URL/favicon.svg" | grep -F 'Антон'
-          grep -Fq 'class="hero-lead">И передавать' /tmp/live-index.html
+          grep -Fq 'class="hero-lead">и передавать работу с клиентами' /tmp/live-index.html
           grep -Fq 'og-antonvert-20261009.png' /tmp/live-index.html
           curl --fail --silent --show-error --location "$URL/assets/og-antonvert-20261009.png" -o /tmp/antonvert-social-preview.png
           test "$(wc -c < /tmp/antonvert-social-preview.png)" -gt 20000
