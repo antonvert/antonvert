@@ -601,13 +601,13 @@
           content_type: 'site_action',
           content_id: 'contact_email_copy'
         });
-        window.gtag('event', 'advisory_request', { contact_method: 'email' });
+        window.gtag('event', 'click_email', { contact_method: 'email_copy' });
       }
     });
 
     const advisoryMethods = {
-      contact_intro_calendly: 'calendly',
-      contact_telegram: 'telegram'
+      contact_intro_calendly: { event: 'click_booking', provider: 'calendly' },
+      contact_telegram: { event: 'click_messenger', messenger: 'telegram' }
     };
     document.addEventListener('click', (event) => {
       const link = event.target.closest('[data-ga-event]');
@@ -615,11 +615,14 @@
       window.gtag('event', 'select_content', {
         content_type: 'site_action',
         content_id: link.dataset.gaEvent,
-        link_url: link.href
+        page_path: window.location.pathname
       });
       const contactMethod = advisoryMethods[link.dataset.gaEvent];
       if (contactMethod) {
-        window.gtag('event', 'advisory_request', { contact_method: contactMethod });
+        window.gtag('event', contactMethod.event, {
+          booking_provider: contactMethod.provider,
+          messenger: contactMethod.messenger
+        });
       }
     });
 

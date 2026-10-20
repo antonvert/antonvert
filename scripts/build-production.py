@@ -35,7 +35,17 @@ if OUT.exists():
     shutil.rmtree(OUT)
 OUT.mkdir(parents=True)
 shutil.copytree(ROOT / "assets", OUT / "assets")
-subprocess.run([sys.executable, str(ROOT / "scripts" / "build-social-preview.py"), str(OUT / "assets" / "og-antonvert-20261009.png")], check=True)
+social_preview = OUT / "assets" / "og-antonvert-20261009.png"
+try:
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "build-social-preview.py"), str(social_preview)], check=True)
+except subprocess.CalledProcessError:
+    # Minimal local environments may not provide a Cyrillic serif font. Keep the
+    # production build verifiable by falling back to the reviewed 1200x630 asset.
+    fallback_preview = ROOT / "assets" / "og-antonvert-1200x630.png"
+    if not fallback_preview.exists() or fallback_preview.stat().st_size < 20_000:
+        raise
+    shutil.copy2(fallback_preview, social_preview)
+    print("WARN social preview generator unavailable; reused reviewed 1200x630 asset")
 for name in ("favicon.svg", "_headers", "404.html"):
     shutil.copy2(ROOT / name, OUT / name)
 
@@ -53,7 +63,7 @@ production_html = production_html.replace(
 sitemap = (
     '<?xml version="1.0" encoding="UTF-8"?>\n'
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-    '  <url><loc>https://antonvert.com/</loc><lastmod>2026-10-09</lastmod></url>\n'
+    '  <url><loc>https://antonvert.com/</loc><lastmod>2026-10-20</lastmod></url>\n'
     '</urlset>\n'
 )
 (OUT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
