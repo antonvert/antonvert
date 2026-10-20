@@ -44,10 +44,10 @@ async function run() {
       await page.screenshot({ path: 'artifacts/qa/' + item.name + '-viewport.png', fullPage: false });
       await page.locator('.hero-grid').screenshot({ path: 'artifacts/qa/' + item.name + '-hero.png' });
       await page.locator('#books').scrollIntoViewIfNeeded();
-      const bookImage = page.locator('img[src="assets/energy-merch-cover.jpg"]');
+      const bookImage = page.locator('img[src="assets/energy-merch-cover-20261009.webp"]');
       await bookImage.scrollIntoViewIfNeeded();
       await bookImage.evaluate(img => img.decode());
-      assert.equal(await bookImage.evaluate(img => img.naturalWidth), 1280);
+      assert.equal(await bookImage.evaluate(img => img.naturalWidth), 768);
       if (item.name === 'desktop-1440') await page.locator('#books .books-grid').screenshot({ path: 'artifacts/qa/books-desktop.png' });
       console.log(JSON.stringify({ viewport: item.name, status: 'PASS', ...state }));
       await page.close();
