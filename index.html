@@ -513,7 +513,29 @@
       try { window.localStorage.setItem(CONSENT_KEY, value); } catch (error) { /* Choice lasts for this page only. */ }
     }
 
+
+  // Send a clean page address; campaign labels are separate from contact/form query strings.
+  function analyticsContext() {
+    const context = {
+      page_location: location.origin + location.pathname,
+      page_referrer: '',
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false
+    };
+    try { const ref = new URL(document.referrer); context.page_referrer = ref.origin + ref.pathname; } catch (_) {}
+    const query = new URLSearchParams(location.search);
+    for (const [utm, field] of Object.entries({utm_source:'campaign_source', utm_medium:'campaign_medium', utm_campaign:'campaign_name', utm_content:'campaign_content', utm_term:'campaign_term'})) {
+      const value = query.get(utm);
+      if (value && /^[a-zA-Z0-9_. -]{1,100}$/.test(value) && !/\d{7}/.test(value)) context[field] = value;
+    }
+    if (query.get('codex_test') === 'seo_20261107') { context.debug_mode = true; context.test_run = 'seo_20261107'; }
+    return context;
+  }
+  function analyticsPage() {
+    return {site: location.hostname.replace(/^www\./, ''), language: document.documentElement.lang || 'en', page_path: location.pathname};
+  }
     function loadAnalytics() {
+      window['ga-disable-' + GA_ID] = false;
       if (!analyticsLoaded) {
         analyticsLoaded = true;
         window.dataLayer = window.dataLayer || [];
@@ -529,7 +551,7 @@
       window.gtag('consent', 'update', { analytics_storage: 'granted' });
       if (document.querySelector('script[data-ga4]')) return;
       window.gtag('js', new Date());
-      window.gtag('config', GA_ID, { anonymize_ip: true });
+      window.gtag('config', GA_ID, { ...analyticsContext(), anonymize_ip: true });
       const script = document.createElement('script');
       script.async = true;
       script.dataset.ga4 = GA_ID;
@@ -539,6 +561,7 @@
 
     function disableAnalytics() {
       analyticsGranted = false;
+      window['ga-disable-' + GA_ID] = true;
       if (analyticsLoaded && typeof window.gtag === 'function') {
         window.gtag('consent', 'update', { analytics_storage: 'denied' });
       }
