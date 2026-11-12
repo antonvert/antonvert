@@ -142,7 +142,7 @@ jobs:
           done
           grep -Fq 'name="robots" content="index,follow,max-image-preview:large"' /tmp/live-index.html
           grep -Fq 'href="https://antonvert.com/"' /tmp/live-index.html
-          grep -Fq 'G-LFD43SGSP2' /tmp/live-index.html
+          grep -Fq 'G-D6FKDLWSPE' /tmp/live-index.html
           curl --fail --silent --show-error --location "$URL/robots.txt" | grep -F 'Allow: /'
           curl --fail --silent --show-error --location "$URL/sitemap.xml" | grep -F 'https://antonvert.com/'
           curl --fail --silent --show-error --location "$URL/favicon.svg" | grep -F 'Антон'
@@ -163,7 +163,7 @@ jobs:
               --output /tmp/apex.html --dump-header /tmp/apex.headers --write-out '%{http_code}' \
               https://antonvert.com/ || true)
             if [ "$status" = "200" ] && \
-               grep -Fq 'G-LFD43SGSP2' /tmp/apex.html && \
+               grep -Fq 'G-D6FKDLWSPE' /tmp/apex.html && \
                grep -Fq 'name="robots" content="index,follow,max-image-preview:large"' /tmp/apex.html; then
               READY=1
               echo "PASS https://antonvert.com/ - updated HTML, GA4 and indexable page"
