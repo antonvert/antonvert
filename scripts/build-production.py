@@ -20,7 +20,7 @@ if source.count(old_robots) != 1:
     raise RuntimeError("Expected exactly one staging noindex meta tag; refusing production build")
 if '<link rel="canonical" href="https://antonvert.com/">' not in source:
     raise RuntimeError("Production canonical URL is missing")
-if source.count("G-LFD43SGSP2") != 1:
+if source.count("G-D6FKDLWSPE") != 1:
     raise RuntimeError("GA4 ID must appear exactly once")
 if source.count('https://antonvert.com/assets/og-antonvert-20261009.png') != 2:
     raise RuntimeError("Open Graph and Twitter images are missing or duplicated")
